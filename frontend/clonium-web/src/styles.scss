@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/bootstrap";
+@import "assets/style/main.scss";
+/* You can add global styles to this file, and also import other style files */
+td{
+    background-color: black;;
+    padding:10px;
+    border: 1px solid white;
+    &.playable{
+        background-color: green;
+    }
+}

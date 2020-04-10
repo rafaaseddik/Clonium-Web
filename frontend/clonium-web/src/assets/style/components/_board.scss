@@ -1,0 +1,40 @@
+.board-box{
+  display: flex;
+  flex-direction: column;
+  .board-row{
+    display: flex;
+    flex-direction: row;
+    .board-cell{
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      text-align: center;
+      justify-items: center;
+      flex-basis: 100%;
+      border: 1px solid black;
+      &.locked{
+        background-color: black;
+      }
+      &.empty{
+        background-color: gray;
+      }
+      &.player1{
+        background-color: #0299ff;
+      }
+      &.player2{
+        background-color: #02ff99;
+      }
+      .board-value{
+        text-align: center;
+        width: 100%;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      &:before {
+        content:'';
+        //float:c;
+        padding-top:100%;
+      }
+    }
+  }
+}

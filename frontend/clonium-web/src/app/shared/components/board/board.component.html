@@ -1,0 +1,7 @@
+<div class="board-box">
+  <div *ngFor="let row of board.playedCells" class="board-row">
+    <div *ngFor="let cell of row" [class]="'board-cell '+cell.getPlayer()">
+      <div class="board-value" *ngIf="cell.value>0">{{cell.value}}</div>
+    </div>
+  </div>
+</div>

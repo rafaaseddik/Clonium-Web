@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+
+  <a class="navbar-brand" href="#">
+    <img src="assets/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Clonium.io
+  </a>
+
+  <button class="navbar-toggler" type="button" aria-expanded="false" (click)="showHeader = !showHeader">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" [class.show]="showHeader">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Join Room</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About the team</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
