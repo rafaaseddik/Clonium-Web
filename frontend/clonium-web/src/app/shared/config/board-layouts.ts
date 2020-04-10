@@ -1,5 +1,5 @@
-export const MAX_WIDTH = 10;
-export const MAX_HEIGHT = 10;
+export const MAX_WIDTH = 8;
+export const MAX_HEIGHT = 8;
 const INITIAL_BOARD = Array(MAX_HEIGHT).fill(Array(MAX_WIDTH).fill(false));
 
 export function RectangularLayout(width: number, height: number): boolean[][] {
