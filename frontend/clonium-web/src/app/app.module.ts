@@ -13,6 +13,7 @@ import { RoomContainerComponent } from './pages/room-container/room-container.co
 import {FormsModule} from '@angular/forms';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {SharedModule} from './shared/shared.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     FormsModule,
     CoreModule,
     SharedModule

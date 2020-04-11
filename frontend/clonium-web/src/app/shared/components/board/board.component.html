@@ -1,13 +1,33 @@
-<div class="board-box">
-  <div *ngFor="let row of board.playedCells" class="board-row">
-    <div *ngFor="let cell of row" [class]="'board-cell '+cell.getPlayer()" (click)="increment(cell)"
-         [class.clickable]="board.currentState==GameState.PLAYER_1 && cell.player==Player.PLAYER_1 || board.currentState==GameState.PLAYER_2 && cell.player==Player.PLAYER_2">
-      <div class="cell-explosion cell-explosion-up" *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y-1)"></div>
-      <div class="cell-explosion cell-explosion-bottom" *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y+1)"></div>
-      <div class="cell-explosion cell-explosion-right" *ngIf="cell.value==4 && board.canPlay(cell.x+1,cell.y)"></div>
-      <div class="cell-explosion cell-explosion-left" *ngIf="cell.value==4 && board.canPlay(cell.x-1,cell.y)"></div>
-      <!--<div class="board-value" *ngIf="cell.value>0">{{cell.value}}</div>-->
+<div class="row">
+  <div class="col-12">
+    <div class="board-box">
+      <div *ngFor="let row of board.playedCells" class="board-row">
+        <div *ngFor="let cell of row" [class]="'board-cell '+cell.getPlayer()" (click)="increment(cell)"
+             [class.clickable]="board.currentState==GameState.PLAYER_1 && cell.player==Player.PLAYER_1 || board.currentState==GameState.PLAYER_2 && cell.player==Player.PLAYER_2">
+          <div class="cell-explosion cell-explosion-up" *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y-1)"></div>
+          <div class="cell-explosion cell-explosion-bottom" *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y+1)"></div>
+          <div class="cell-explosion cell-explosion-right" *ngIf="cell.value==4 && board.canPlay(cell.x+1,cell.y)"></div>
+          <div class="cell-explosion cell-explosion-left" *ngIf="cell.value==4 && board.canPlay(cell.x-1,cell.y)"></div>
+          <!--<div class="board-value" *ngIf="cell.value>0">{{cell.value}}</div>-->
+        </div>
+      </div>
+      <div class="winning-overlay" *ngIf="board.currentState==GameState.PLAYER_1_WON || board.currentState==GameState.PLAYER_2_WON || true">
+          <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_1_WON">Player <img src="assets/img/cell/blue.png" width="50px" height="50px"> Won!</h1>
+          <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_2_WON">Player <img src="assets/img/cell/red.png" width="50px" height="50px"> Won!</h1>
+        <button class="btn btn-outline-light px-4">Replay</button>
+        <a routerLink="/home"><button class="ml-2 btn btn-outline-light px-2" >Home Page</button></a>
+
+      </div>
     </div>
   </div>
+  <div class="col-12 offset-sm-3 col-sm-6">
+    <div class="scoreboard">
+      <h4 class="mt-2 text-light">Score</h4>
+      <div class="player-icon-holder"><img src="assets/img/cell/blue.png" width="30px" height="30px"> </div> <div class="text-light">{{player1Score}}</div>
+      <div class="player-icon-holder"><img src="assets/img/cell/red.png" width="30px" height="30px"> </div> <div class="text-light">{{player2Score}}</div>
+    </div>
+
+  </div>
 </div>
+
 

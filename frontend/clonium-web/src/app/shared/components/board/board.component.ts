@@ -18,10 +18,14 @@ export class BoardComponent implements OnInit {
   GameState = GameState;
   Player = Player;
 
+  player1Score = 0;
+  player2Score = 0;
+
   constructor() {
   }
 
   ngOnInit() {
+    this.updateScore();
   }
 
   // returns true if something changed
@@ -59,6 +63,7 @@ export class BoardComponent implements OnInit {
       }
       this.board.currentState = GameState.PLAYER_1;
     }
+    this.updateScore();
   }
 
   async increment(cell: Cell) {
@@ -72,4 +77,13 @@ export class BoardComponent implements OnInit {
 
   }
 
+  updateScore() {
+    this.player1Score = (_.flatten(this.board.playedCells) as Array<Cell>).filter(cell => cell.player === Player.PLAYER_1).length;
+    this.player2Score = (_.flatten(this.board.playedCells) as Array<Cell>).filter(cell => cell.player === Player.PLAYER_2).length;
+    if (this.player1Score === 0) {
+      this.board.currentState = GameState.PLAYER_2_WON;
+    } else if (this.player2Score === 0) {
+      this.board.currentState = GameState.PLAYER_1_WON;
+    }
+  }
 }

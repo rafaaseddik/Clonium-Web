@@ -1,7 +1,27 @@
 .board-box{
   display: flex;
   flex-direction: column;
-  max-width: calc(99vh - 60px);
+  position: relative;
+  margin:0 auto;
+  max-width: calc(99vh - 160px);
+  .winning-overlay{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background: #00000099;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    h1{
+      flex-grow: 1;
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
   .board-row{
     display: flex;
     flex-direction: row;
