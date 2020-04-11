@@ -1,0 +1,140 @@
+.board-box{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin:0 auto;
+  max-width: calc(99vh - 160px);
+  .winning-overlay{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background: #00000099;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    h1{
+      flex-grow: 1;
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+  .board-row{
+    display: flex;
+    flex-direction: row;
+    .board-cell{
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      text-align: center;
+      justify-items: center;
+      flex-basis: 100%;
+      border: 1px solid black;
+      position: relative;
+      &.locked{
+        background-color: black;
+      }
+      &.empty{
+        background-color: gray;
+      }
+      &.player1{
+        background: gray;
+        &.value-1{
+          background-image: url('assets/img/cell/blue_1.png');
+          background-size: cover;
+        }
+        &.value-2{
+          background-image: url('assets/img/cell/blue_2.png');
+          background-size: cover;
+        }
+        &.value-3{
+          background-image: url('assets/img/cell/blue_3.png');
+          background-size: cover;
+        }
+        &.value-4{
+          background-image: url('assets/img/cell/blue_4.png');
+          background-size: cover
+        }
+        &.clickable{
+          cursor: pointer;
+          background-color: #0299ff;
+          //box-shadow: inset 0 0 15px 0 #000;
+        }
+        .cell-explosion{
+          background-color: #0299ff;
+        }
+      }
+      &.player2{
+        background: gray;
+        &.value-1{
+          background-image: url('assets/img/cell/red_1.png');
+          background-size: cover;
+        }
+        &.value-2{
+          background-image: url('assets/img/cell/red_2.png');
+          background-size: cover;
+        }
+        &.value-3{
+          background-image: url('assets/img/cell/red_3.png');
+          background-size: cover;
+        }
+        &.value-4{
+          background-image: url('assets/img/cell/red_4.png');
+          background-size: cover
+        }
+        &.clickable{
+          cursor: pointer;
+          background-color: #ff0040;
+          //box-shadow: inset 0 0 15px 0 #000;
+        }
+        .cell-explosion{
+          background-color: #ff0040;
+        }
+      }
+      .board-value{
+        text-align: center;
+        width: 100%;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      &:before {
+        content:'';
+        //float:c;
+        padding-top:100%;
+      }
+      .cell-explosion{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        &.cell-explosion-up{
+          //transform: translateY(-100%);
+          animation: animationFramesUp ease-in-out 0.5s;
+          animation-fill-mode:forwards;
+          animation-iteration-count: 1;
+        }
+        &.cell-explosion-bottom{
+          //transform: translateY(100%);
+          animation: animationFramesDown ease-in-out 0.5s;
+          animation-fill-mode:forwards;
+          animation-iteration-count: 1;
+        }
+        &.cell-explosion-right{
+          //transform: translate3d(100%,0,2px);
+          animation: animationFramesRight ease-in-out 0.5s;
+          animation-fill-mode:forwards;
+          animation-iteration-count: 1;
+        }
+        &.cell-explosion-left{
+          //transform: translateX(-100%);
+          animation: animationFramesLeft ease-in-out 0.5s;
+          animation-fill-mode:forwards;
+          animation-iteration-count: 1;
+        }
+      }
+    }
+  }
+}

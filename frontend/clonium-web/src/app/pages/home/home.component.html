@@ -4,7 +4,11 @@
     <h2 class="text-success mb-5">This is an open alpha version, the game development is still in progress</h2>
 
     <button class="btn btn-outline-primary mr-3" (click)="displayCreateModal=true">Create Room</button>
-    <button class="btn btn-outline-primary">Join Room</button>
+    <a routerLink="/join-room"><button class="btn btn-outline-primary">Join Room</button></a>
+
+    <h6 class="text-light mt-5 font-weight-lighter">
+      Developed by : Rafaa Seddik & Ahmed Khalil Seddik
+    </h6>
   </div>
 </div>
 
@@ -31,19 +35,18 @@
         <div class="col-sm-8">
           <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect1" value="rect1"
                                          [(ngModel)]="map"><label
-            class="form-check-label" for="radiorect1">Rectangular 1</label><br></div>
+            class="form-check-label mb-1" for="radiorect1"><img src="assets/img/1.jpg" width="60"></label><br></div>
           <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect2" value="rect2"
                                          [(ngModel)]="map"><label
-            class="form-check-label" for="radiorect2">Rectangular 2</label><br></div>
+            class="form-check-label mb-1" for="radiorect2"><img src="assets/img/2.jpg" width="60"></label><br></div>
           <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect3" value="rect3"
                                          [(ngModel)]="map"><label
-            class="form-check-label" for="radiorect3">Rectangular 3</label></div>
+            class="form-check-label mb-1" for="radiorect3"><img src="assets/img/3.jpg" width="60"></label></div>
         </div>
       </div>
     </fieldset>
 
-    <input class="form-control mb-2" *ngIf="multiplayerMode=='online'" placeholder="Room Link....">
-    <button class="btn btn-outline-dark" *ngIf="multiplayerMode=='online'">Create Room Link</button>
+    <button class="btn btn-outline-dark" *ngIf="multiplayerMode=='online'" (click)="createOnlineGame()">Create Room Link</button>
     <button class="btn btn-outline-dark" *ngIf="multiplayerMode=='single'" (click)="createSingleDeviceGame()">Start Game</button>
     <button class="btn ml-2 btn-outline-danger" (click)="displayCreateModal=false">Cancel</button>
 

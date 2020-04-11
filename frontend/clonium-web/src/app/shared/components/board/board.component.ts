@@ -6,6 +6,8 @@ import {Player} from '../../models/player.model';
 
 import * as _ from 'lodash';
 import {wait} from '../../utils/time-management';
+import {GameService} from '../../../core/services/game.service';
+import {RoomService} from '../../../core/services/room.service';
 
 @Component({
   selector: 'app-board',
@@ -13,6 +15,10 @@ import {wait} from '../../utils/time-management';
 })
 export class BoardComponent implements OnInit {
 
+  @Input() isOnline: boolean = false;
+  @Input() noPlayer2: boolean = true;
+  currentPlayer: Player;
+  roomID:string;
   @Input() board: Board;
 
   GameState = GameState;
@@ -21,11 +27,31 @@ export class BoardComponent implements OnInit {
   player1Score = 0;
   player2Score = 0;
 
-  constructor() {
+  constructor(private gameService: GameService, private roomService: RoomService) {
   }
 
   ngOnInit() {
     this.updateScore();
+    if (this.isOnline) {
+      this.currentPlayer = this.gameService.curentPlayer;
+      this.roomID = this.roomService.roomID;
+      this.roomService.playerTwoJoined.asObservable().subscribe(joined => {
+        this.noPlayer2 = false;
+      });
+      this.roomService.move.asObservable().subscribe(move=>{
+        if(move.player==1 && this.currentPlayer == Player.PLAYER_2){
+          this.incrementFromOtherPlayer(move.x,move.y);
+        }else if(move.player==2 && this.currentPlayer == Player.PLAYER_1){
+          this.incrementFromOtherPlayer(move.x,move.y);
+        }
+      })
+    }
+
+  }
+  copyToClipboard(event){
+    let input = event.target;
+    input.select()
+    document.execCommand('copy');
   }
 
   // returns true if something changed
@@ -67,11 +93,24 @@ export class BoardComponent implements OnInit {
   }
 
   async increment(cell: Cell) {
-    if (this.board.currentState === GameState.PLAYER_1 && cell.player === Player.PLAYER_1) {
+    if (this.board.currentState === GameState.PLAYER_1 && cell.player === Player.PLAYER_1 && (!this.isOnline || this.currentPlayer == Player.PLAYER_1)) {
+      this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_1);
       this.nextRole();
-    } else if (this.board.currentState === GameState.PLAYER_2 && cell.player === Player.PLAYER_2) {
+    } else if (this.board.currentState === GameState.PLAYER_2 && cell.player === Player.PLAYER_2 && (!this.isOnline || this.currentPlayer == Player.PLAYER_2)) {
+      this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_2);
+      this.nextRole();
+    }
+
+  }
+
+  async incrementFromOtherPlayer(x:number,y:number) {
+    if (this.board.currentState === GameState.PLAYER_1 &&  this.currentPlayer == Player.PLAYER_2) {
+      this.board.playedCells[y][x].increment(Player.PLAYER_1);
+      this.nextRole();
+    } else if (this.board.currentState === GameState.PLAYER_2 &&  this.currentPlayer == Player.PLAYER_1) {
+      this.board.playedCells[y][x].increment(Player.PLAYER_2);
       this.nextRole();
     }
 

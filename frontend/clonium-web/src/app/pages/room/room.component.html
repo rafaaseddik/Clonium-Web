@@ -1,3 +1,6 @@
 <ng-container *ngIf="board">
-<app-board [board]="board"></app-board>
+<app-board [board]="board" [isOnline]="isOnline"></app-board>
+</ng-container>
+<ng-container *ngIf="!board">
+  <h1 class="text-danger mt-4">Board Not Found</h1>
 </ng-container>

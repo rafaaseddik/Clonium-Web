@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../core/services/game.service';
 import {Router} from '@angular/router';
+import {RoomService} from '../../core/services/room.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   multiplayerMode = 'single';
   map = 'rect1';
 
-  constructor(private router: Router, private gameService: GameService) {
+  constructor(private router: Router, private gameService: GameService,private roomService:RoomService) {
   }
 
   ngOnInit() {
@@ -21,6 +22,13 @@ export class HomeComponent implements OnInit {
   createSingleDeviceGame() {
     this.gameService.createBoard(this.map);
     this.router.navigate(['room/single-device']);
+  }
+  createOnlineGame(){
+    this.roomService.createRoom(this.map).then((roomID)=>{
+      this.gameService.createOnlineBoard(this.map);
+      this.router.navigate(['room/online'])
+    });
+
   }
 
 

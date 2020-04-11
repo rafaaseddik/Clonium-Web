@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Board} from '../../shared/models/board.model';
+import {GameService} from '../../core/services/game.service';
+import {Player} from '../../shared/models/player.model';
 
 @Component({
   selector: 'app-room',
@@ -8,9 +10,13 @@ import {Board} from '../../shared/models/board.model';
 export class OnlineRoomComponent implements OnInit {
 
   board: Board;
-  constructor() { }
+  currentPlayer:Player
+  isOnline= true;
+  constructor(private gameService:GameService) { }
 
   ngOnInit() {
+    this.board = this.gameService.currentBoard;
+    this.currentPlayer = this.gameService.curentPlayer;
   }
 
 }

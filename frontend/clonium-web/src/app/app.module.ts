@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {RouterModule} from '@angular/router';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,10 @@ import {RouterModule} from '@angular/router';
     CoreModule,
     SharedModule
   ],
-  providers: [],
+  providers: [{
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

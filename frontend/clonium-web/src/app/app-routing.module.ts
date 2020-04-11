@@ -21,6 +21,7 @@ const routes: Routes = [
           {path: 'online', component: OnlineRoomComponent},
         ]
       },
+      {path: '', redirectTo: 'home', pathMatch: 'full'}
     ]
   }
 ];

@@ -34,7 +34,6 @@ export class Board {
     const x = cell.x;
     const y = cell.y;
     const result = [];
-    console.log(x, y);
     if (x - 1 >= 0 && this.playableCells[y][x - 1]) {
       result.push(this.playedCells[y][x - 1]);
     }
@@ -47,7 +46,6 @@ export class Board {
     if (y + 1 < MAX_HEIGHT && this.playableCells[y + 1][x]) {
       result.push(this.playedCells[y + 1][x]);
     }
-    console.log(result);
     return result;
 
   }
