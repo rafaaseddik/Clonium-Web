@@ -1,7 +1,9 @@
 <div class="board-box">
   <div *ngFor="let row of board.playedCells" class="board-row">
-    <div *ngFor="let cell of row" [class]="'board-cell '+cell.getPlayer()">
+    <div *ngFor="let cell of row" [class]="'board-cell '+cell.getPlayer()" (click)="increment(cell)"
+         [class.clickable]="board.currentState==GameState.PLAYER_1 && cell.player==Player.PLAYER_1 || board.currentState==GameState.PLAYER_2 && cell.player==Player.PLAYER_2">
       <div class="board-value" *ngIf="cell.value>0">{{cell.value}}</div>
     </div>
   </div>
 </div>
+

@@ -14,8 +14,9 @@ export class Cell {
     this.value = value;
   }
 
-  increment() {
+  increment(newPlayer: Player) {
     this.value = this.value + 1;
+    this.player = newPlayer;
   }
 
   explode() {

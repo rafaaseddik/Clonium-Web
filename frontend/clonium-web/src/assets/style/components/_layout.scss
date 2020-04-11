@@ -1,6 +1,6 @@
 body{
   background-color: black;
-  &::before{
+  /*&::before{
     background-image: url('assets/img/bg.jpg');
     content:'';
     position: fixed;
@@ -9,7 +9,7 @@ body{
     bottom: 0;
     right: 0;
     opacity: 0.1;
-  }
+  }*/
 }
 
 

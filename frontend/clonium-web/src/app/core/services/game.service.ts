@@ -14,8 +14,8 @@ export class GameService {
 
   constructor() {
     this.currentBoard = new Board(8, 8, RectangularLayout(8, 8));
-    this.currentBoard.setCell(1, 1, new Cell(2, 2, Player.PLAYER_1, 1));
-    this.currentBoard.setCell(6, 6, new Cell(7, 7, Player.PLAYER_2, 1));
+    this.currentBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 1));
+    this.currentBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 1));
   }
 
   createBoard(mapName: string) {
