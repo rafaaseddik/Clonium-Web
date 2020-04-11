@@ -33,10 +33,10 @@ export class Cell {
         return 'locked';
         break;
       case Player.PLAYER_1:
-        return 'player1';
+        return 'player1 value-' + this.value;
         break;
       case Player.PLAYER_2:
-        return 'player2';
+        return 'player2 value-' + this.value;
         break;
     }
   }
