@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RectangularLayout} from './shared/config/board-layouts';
+import {RectangularLayout} from './shared/utils/board-layouts';
 
 @Component({
   selector: 'app-root',

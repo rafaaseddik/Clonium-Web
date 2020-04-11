@@ -5,6 +5,7 @@ import {GameState} from '../../models/game-state.model';
 import {Player} from '../../models/player.model';
 
 import * as _ from 'lodash';
+import {wait} from '../../utils/time-management';
 
 @Component({
   selector: 'app-board',
@@ -34,6 +35,7 @@ export class BoardComponent implements OnInit {
   }
 
   async update(cells: Array<Cell>, player: Player) {
+    await wait(500);
     this.board.currentState = GameState.UPDATING;
     cells.forEach(cell => {
       cell.explode();
@@ -59,7 +61,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  increment(cell: Cell) {
+  async increment(cell: Cell) {
     if (this.board.currentState === GameState.PLAYER_1 && cell.player === Player.PLAYER_1) {
       cell.increment(Player.PLAYER_1);
       this.nextRole();
@@ -69,4 +71,5 @@ export class BoardComponent implements OnInit {
     }
 
   }
+
 }

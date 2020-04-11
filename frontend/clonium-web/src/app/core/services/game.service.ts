@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Board} from 'src/app/shared/models/board.model';
-import {RectangularLayout} from '../../shared/config/board-layouts';
+import {RectangularLayout} from '../../shared/utils/board-layouts';
 import {Cell} from '../../shared/models/cell.model';
 import {Player} from '../../shared/models/player.model';
 

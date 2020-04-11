@@ -1,5 +1,5 @@
 import {Cell} from './cell.model';
-import {MAX_HEIGHT, MAX_WIDTH} from '../config/board-layouts';
+import {MAX_HEIGHT, MAX_WIDTH} from '../utils/board-layouts';
 import {GameState} from './game-state.model';
 
 export class Board {
@@ -9,7 +9,9 @@ export class Board {
   playedCells: Cell[][];
 
   currentState: GameState;
+  // tslint:disable-next-line:variable-name
   offset_x: number;
+  // tslint:disable-next-line:variable-name
   offset_y: number;
 
   constructor(width: number, height: number, playableCells: boolean[][]) {
@@ -48,6 +50,15 @@ export class Board {
     console.log(result);
     return result;
 
+  }
+
+
+  canPlay(x, y) {
+    if (x < 0 || y < 0 || x >= MAX_WIDTH || y >= MAX_HEIGHT || !this.playableCells[y][x]) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   setCell(x: number, y: number, cell: Cell): void {
