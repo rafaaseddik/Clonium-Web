@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { CellComponent } from './components/cell/cell.component';
 import { BoardComponent } from './components/board/board.component';
 import {RouterModule} from '@angular/router';
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 
 
 
 @NgModule({
-  declarations: [CellComponent, BoardComponent],
+  declarations: [CellComponent, BoardComponent, ChatBoxComponent],
   exports: [
     BoardComponent
   ],

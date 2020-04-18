@@ -31,6 +31,23 @@
 
     <fieldset class="form-group">
       <div class="row">
+        <legend class="col-form-label col-sm-4 pt-0">Number of players</legend>
+        <div class="col-sm-8">
+          <div class="form-check"><input class="form-check-input" type="radio" name="playersNumber" id="radio2"
+                                         [value]="2" [(ngModel)]="playersNumber"><label
+            class="form-check-label" for="radio2">2 Players</label><br></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="playersNumber" id="radio3"
+                                         [value]="3" [(ngModel)]="playersNumber"><label
+            class="form-check-label" for="radio3">3 Players</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="playersNumber" id="radio4"
+                                         [value]="4" [(ngModel)]="playersNumber"><label
+            class="form-check-label" for="radio4">4 Players</label></div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <div class="row">
         <legend class="col-form-label col-sm-4 pt-0">Map</legend>
         <div class="col-sm-8">
           <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect1" value="rect1"

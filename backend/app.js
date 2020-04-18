@@ -21,7 +21,7 @@ app.use((req, res, next) => {
         res.send('ok');
         res.end();
         return;
-    }else if (req.originalUrl != "/room/create" && req.originalUrl != "/room/join"&& req.originalUrl != "/status") {
+    }else if (req.originalUrl != "/room/create" && req.originalUrl != "/room/join" && req.originalUrl != "/room/getConnectedPlayers" && req.originalUrl != "/status") {
         const token = req.headers["x-access-token"];
         if (token) {
             jwt.verify(token, config.jwt.secret, (err, decoded) => {
@@ -70,10 +70,15 @@ io.on('connection',(socket)=>{
         console.log("Created room, room ID:",roomID)
         socket.join(roomID);
     })
-    socket.on('join-room',(roomID)=>{
-        console.log("Joined room, room ID:",roomID)
+    socket.on('join-room',(roomID,currentPlayerNumber)=>{
+        console.log("Joined room, room ID:",roomID,"player number :",currentPlayerNumber)
         socket.join(roomID);
-        io.to(roomID).emit("second_player_joined");
+        switch(currentPlayerNumber){
+            case 2: io.to(roomID).emit("second_player_joined");break;
+            case 3: io.to(roomID).emit("third_player_joined");break;
+            case 4: io.to(roomID).emit("fourth_player_joined");break;
+        }
+        
     })
     socket.on('move',(roomID,player,x,y)=>{
         console.log("In room "+roomID+", Player N°"+player+" played("+x+","+y+")")

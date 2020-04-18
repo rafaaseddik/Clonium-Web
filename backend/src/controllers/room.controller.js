@@ -2,7 +2,8 @@ const router = require("express").Router();
 const RoomService = require('../services/room.service')
 router.post('/create',(req,res)=>{
     let mapName = req.body.mapName;
-    let roomID = RoomService.createRoom(mapName);
+    let playersNumber = req.body.playersNumber;
+    let roomID = RoomService.createRoom(mapName,playersNumber);
     res.json({
         status:200,
         success:true,
@@ -17,7 +18,25 @@ router.post('/join',(req,res)=>{
         res.json({
             status:200,
             success:true,
-            board:RoomService.joinRoom(req.body.roomID)
+            board:room
+        });
+    }else{
+        res.status(404).json({
+            status:404,
+            success:false,
+            message:'Room not found'
+        })
+    }
+    
+})
+router.post('/getConnectedPlayers',(req,res)=>{
+    let roomID = req.body.roomID;
+    let nb = RoomService.getConnectedPlayers(roomID);
+    if(nb){
+        res.json({
+            status:200,
+            success:true,
+            result:nb
         });
     }else{
         res.status(404).json({

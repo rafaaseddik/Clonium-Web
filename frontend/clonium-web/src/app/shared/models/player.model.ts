@@ -3,4 +3,6 @@ export enum Player {
   NO_PLAYER,
   PLAYER_1,
   PLAYER_2,
+  PLAYER_3,
+  PLAYER_4,
 }

@@ -38,6 +38,12 @@ export class Cell {
       case Player.PLAYER_2:
         return 'player2 value-' + this.value;
         break;
+      case Player.PLAYER_3:
+        return 'player3 value-' + this.value;
+        break;
+      case Player.PLAYER_4:
+        return 'player4 value-' + this.value;
+        break;
     }
   }
 

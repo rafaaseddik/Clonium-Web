@@ -1,9 +1,10 @@
 class Room{
 
-    constructor(roomID,board){
+    constructor(roomID,board,playersNumber){
         this.roomID = roomID;
         this.board = board;
-        this.playerNumber = 0;
+        this.playersNumber = playersNumber;
+        this.onlinePlayers=1;
     }
 }
 module.exports = Room;

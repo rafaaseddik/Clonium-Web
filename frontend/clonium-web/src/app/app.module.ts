@@ -16,6 +16,7 @@ import {SharedModule} from './shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     MainLayoutComponent,
     SameDeviceRoomComponent,
     OnlineRoomComponent,
-    RoomContainerComponent
+    RoomContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +40,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

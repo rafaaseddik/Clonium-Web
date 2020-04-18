@@ -1,20 +1,23 @@
 import {Cell} from './cell.model';
 import {MAX_HEIGHT, MAX_WIDTH} from '../utils/board-layouts';
 import {GameState} from './game-state.model';
+import {Player} from './player.model';
 
 export class Board {
   width;
   height;
   playableCells: boolean[][]; // if 1: playable, 0 unplayable
   playedCells: Cell[][];
-
+  playersNumber:number;
+  presentPlayers:number;
+  lostPlayers : Player[] = [];
   currentState: GameState;
   // tslint:disable-next-line:variable-name
   offset_x: number;
   // tslint:disable-next-line:variable-name
   offset_y: number;
 
-  constructor(width: number, height: number, playableCells: boolean[][]) {
+  constructor(width: number, height: number, playableCells: boolean[][],playersNumber:number=2) {
     this.width = width;
     this.height = height;
     this.playableCells = playableCells;
@@ -23,6 +26,8 @@ export class Board {
     this.offset_x = Math.floor((MAX_WIDTH - width) / 2);
     this.offset_y = Math.floor((MAX_HEIGHT - height) / 2);
 
+    this.playersNumber=playersNumber;
+    this.presentPlayers = 1;
     this.currentState = GameState.PLAYER_1;
   }
 
