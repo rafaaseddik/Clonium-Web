@@ -1,8 +1,18 @@
-<div class="chat-box">
+<div class="display-inbox"><button class="btn btn-outline-primary" (click)="displayInbox=true" *ngIf="!displayInbox">Messages</button></div>
+<div class="chat-box" *ngIf="displayInbox">
+  <div class="times-btn" (click)="displayInbox=false">X</div>
   <div class="messages-list">
-
+    <div class="message-scroller">
+      <div class="message" *ngFor="let message of messages" [class.from-me]="message.sender ==player">
+        <img src="assets/img/cell/blue.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_1">
+        <img src="assets/img/cell/red.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_2">
+        <img src="assets/img/cell/green.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_3">
+        <img src="assets/img/cell/yellow.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_4">
+        <p>{{message.text}}</p>
+      </div>
+    </div>
   </div>
   <div class="send-message">
-    <input class="form-control-sm" name="submit"><button class="btn btn-outline-dark">Send</button>
+    <input class="form-control-sm" name="submit" [(ngModel)]="currentMessage" (keyup.enter)="sendMessage()"><button class="btn btn-outline-dark" (click)="sendMessage()">Send</button>
   </div>
 </div>

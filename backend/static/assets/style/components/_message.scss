@@ -1,0 +1,51 @@
+.display-inbox{
+  position: fixed;
+  left:10px;
+  bottom: 10px;
+}
+
+.chat-box{
+  position: fixed;
+  left:10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width:250px;
+  background-color: #eee;
+  border-radius: 5px;
+  .times-btn{
+    position: absolute;
+    top: -24px;
+    right: 5px;
+    color: white;
+    text-shadow: 2px 3px 5px black;
+  }
+  .messages-list{
+    flex-grow: 1;
+    position: relative;
+    .message-scroller{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      overflow: auto;
+    }
+    .message{
+      display: flex;
+      &.from-me{
+        text-align: left;
+        flex-direction: row-reverse;
+      }
+    }
+  }
+  .send-message{
+    display: flex;
+    input{
+      flex-grow: 1;
+      height: 100%;
+    }
+  }
+}

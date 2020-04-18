@@ -84,6 +84,10 @@ io.on('connection',(socket)=>{
         console.log("In room "+roomID+", Player N°"+player+" played("+x+","+y+")")
         io.to(roomID).emit('move',player,x,y)
     })
+    socket.on('send-msg',(roomID,message,player)=>{
+        console.log(roomID,player,message)
+        io.to(roomID).emit('receive-message',message,player)
+    })
 
 })
 server.listen(port,function(){

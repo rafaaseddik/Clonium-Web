@@ -1,8 +1,10 @@
+import {Player} from './player.model';
+
 export class Message{
-  sender:string;
+  sender:Player;
   text:string;
 
-  constructor(sender: string, text: string) {
+  constructor(sender: Player, text: string) {
     this.sender = sender;
     this.text = text;
   }

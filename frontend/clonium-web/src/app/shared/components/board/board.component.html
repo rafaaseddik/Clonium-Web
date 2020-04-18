@@ -17,7 +17,7 @@
 
         <div><label class="text-warning">Room ID</label><input class="form-control mx-2" [value]="roomID" (click)="copyToClipboard($event)"></div>
       </div>
-      <div class="winning-overlay" *ngIf="board.currentState==GameState.PLAYER_1_WON || board.currentState==GameState.PLAYER_2_WON">
+      <div class="winning-overlay" *ngIf="board.currentState==GameState.PLAYER_1_WON || board.currentState==GameState.PLAYER_2_WON|| board.currentState==GameState.PLAYER_3_WON|| board.currentState==GameState.PLAYER_4_WON">
           <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_1_WON">Player <img src="assets/img/cell/blue.png" width="50px" height="50px"> Won!</h1>
           <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_2_WON">Player <img src="assets/img/cell/red.png" width="50px" height="50px"> Won!</h1>
           <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_3_WON">Player <img src="assets/img/cell/green.png" width="50px" height="50px"> Won!</h1>
@@ -48,4 +48,4 @@
 
 
 
-<app-chat-box></app-chat-box>
+<app-chat-box [player]="currentPlayer" *ngIf="isOnline"></app-chat-box>

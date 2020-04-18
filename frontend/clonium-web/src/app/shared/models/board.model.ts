@@ -10,7 +10,7 @@ export class Board {
   playedCells: Cell[][];
   playersNumber:number;
   presentPlayers:number;
-  lostPlayers : Player[] = [];
+  lostPlayers : GameState[] = [];
   currentState: GameState;
   // tslint:disable-next-line:variable-name
   offset_x: number;

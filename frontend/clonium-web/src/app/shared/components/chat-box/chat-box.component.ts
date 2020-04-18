@@ -9,13 +9,28 @@ import {RoomService} from '../../../core/services/room.service';
 })
 export class ChatBoxComponent implements OnInit {
 
-  @Input() roomID:string;
-  @Input() player:Player;
+  currentMessage:string;
+  @Input() player:Player = Player.PLAYER_1;
   messages : Message[] = []
-
+  displayInbox:boolean = false;
+  Player=Player;
   constructor(private roomService:RoomService) { }
 
+
   ngOnInit() {
+
+    this.roomService.receiveMessage.asObservable().subscribe(message=>{
+      this.messages.push(message);
+    })
+  }
+  submitByEnter(event){
+    if (event.key === 'Enter'){
+      this.sendMessage()
+    }
+  }
+  sendMessage(){
+    this.roomService.sendMessage(this.currentMessage,this.player);
+    this.currentMessage="";
   }
 
 }

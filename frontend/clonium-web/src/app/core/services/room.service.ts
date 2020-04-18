@@ -37,6 +37,9 @@ export class RoomService {
     this.socket.on("move",(player,x,y)=>{
       this.move.next({player,x,y})
     })
+    this.socket.on("receive-message",(message,player)=>{
+      this.receiveMessage.next(new Message(player,message))
+    })
   }
 
   createRoom(mapName:string,playersNumber:number): Promise<Board> {
@@ -101,6 +104,10 @@ export class RoomService {
         reject()
       })
     }))
+  }
+  sendMessage(message:string,player:Player){
+    console.log("sending",this.roomID,message,player)
+    this.socket.emit('send-msg',this.roomID,message,player);
   }
   emitMove(player:Player,cell:Cell){
     let playerNumber = 1;
