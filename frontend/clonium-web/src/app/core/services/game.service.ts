@@ -21,37 +21,37 @@ export class GameService {
     switch (mapName) {
       case 'rect1': {
         newBoard = new Board(8, 8, RectangularLayout(8, 8),playersNumber);
-        newBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 1));
-        newBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 1));
+        newBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 3));
+        newBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 3));
         if(playersNumber>2){
-          newBoard.setCell(6, 1, new Cell(6, 1, Player.PLAYER_3, 1));
+          newBoard.setCell(6, 1, new Cell(6, 1, Player.PLAYER_3, 3));
         }
         if(playersNumber>3){
-          newBoard.setCell(1, 6, new Cell(1, 6, Player.PLAYER_4, 1));
+          newBoard.setCell(1, 6, new Cell(1, 6, Player.PLAYER_4, 3));
         }
         break;
       }
       case 'rect2': {
         newBoard = new Board(8, 8, TwoRectangulesLayout(8, 8,2,2),playersNumber);
-        newBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 1));
-        newBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 1));
+        newBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 3));
+        newBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 3));
         if(playersNumber>2){
-          newBoard.setCell(6, 1, new Cell(6, 1, Player.PLAYER_3, 1));
+          newBoard.setCell(6, 1, new Cell(6, 1, Player.PLAYER_3, 3));
         }
         if(playersNumber>3){
-          newBoard.setCell(1, 6, new Cell(1, 6, Player.PLAYER_4, 1));
+          newBoard.setCell(1, 6, new Cell(1, 6, Player.PLAYER_4, 3));
         }
         break;
       }
       case 'rect3':{
         newBoard = new Board(8, 8, RectangularAndSquaresLayout(8, 8,1),playersNumber);
-        newBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 1));
-        newBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 1));
+        newBoard.setCell(1, 1, new Cell(1, 1, Player.PLAYER_1, 3));
+        newBoard.setCell(6, 6, new Cell(6, 6, Player.PLAYER_2, 3));
         if(playersNumber>2){
-          newBoard.setCell(6, 1, new Cell(6, 1, Player.PLAYER_3, 1));
+          newBoard.setCell(6, 1, new Cell(6, 1, Player.PLAYER_3, 3));
         }
         if(playersNumber>3){
-          newBoard.setCell(1, 6, new Cell(1, 6, Player.PLAYER_4, 1));
+          newBoard.setCell(1, 6, new Cell(1, 6, Player.PLAYER_4, 3));
         }
         break;
       }

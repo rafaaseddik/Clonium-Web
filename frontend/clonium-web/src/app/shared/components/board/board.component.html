@@ -1,4 +1,13 @@
 <div class="row">
+  <div class="col-12 offset-sm-3 col-sm-6">
+    <div class="scoreboard">
+      <h4 class="mt-2">Score</h4>
+      <div class="player-icon-holder"><img src="assets/img/cell/blue.png" width="30px" height="30px"> </div> <div>{{player1Score}}</div>
+      <div class="player-icon-holder"><img src="assets/img/cell/red.png" width="30px" height="30px"> </div> <div>{{player2Score}}</div>
+      <div class="player-icon-holder" *ngIf="board.playersNumber>2"><img src="assets/img/cell/green.png" width="30px" height="30px"> </div> <div *ngIf="board.playersNumber>2">{{player3Score}}</div>
+      <div class="player-icon-holder" *ngIf="board.playersNumber>3"><img src="assets/img/cell/yellow.png" width="30px" height="30px"> </div> <div *ngIf="board.playersNumber>3">{{player4Score}}</div>
+    </div>
+  </div>
   <div class="col-12">
     <div class="board-box">
       <div *ngFor="let row of board.playedCells" class="board-row">
@@ -28,19 +37,11 @@
       </div>
     </div>
   </div>
-  <div class="col-12 offset-sm-3 col-sm-6">
-    <div class="scoreboard">
-      <h4 class="mt-2 text-light">Score</h4>
-      <div class="player-icon-holder"><img src="assets/img/cell/blue.png" width="30px" height="30px"> </div> <div class="text-light">{{player1Score}}</div>
-      <div class="player-icon-holder"><img src="assets/img/cell/red.png" width="30px" height="30px"> </div> <div class="text-light">{{player2Score}}</div>
-      <div class="player-icon-holder" *ngIf="board.playersNumber>2"><img src="assets/img/cell/green.png" width="30px" height="30px"> </div> <div class="text-light" *ngIf="board.playersNumber>2">{{player3Score}}</div>
-      <div class="player-icon-holder" *ngIf="board.playersNumber>3"><img src="assets/img/cell/yellow.png" width="30px" height="30px"> </div> <div class="text-light" *ngIf="board.playersNumber>3">{{player4Score}}</div>
-    </div>
-  </div>
+
   <div class="col-12 offset-sm-3 col-sm-6" *ngIf="isOnline">
-    <h5 class="mt-2 text-white text-center" *ngIf="board.currentState==playerToGameState(currentPlayer);else opponent">Your turn</h5>
+    <h5 class="mt-2 text-dark text-center" *ngIf="board.currentState==playerToGameState(currentPlayer);else opponent">Your turn</h5>
     <ng-template #opponent>
-      <h5 class="mt-2 text-white text-center">Wait for your opponent</h5>
+      <h5 class="mt-2 text-dark text-center">Wait for your opponent</h5>
     </ng-template>
 
   </div>

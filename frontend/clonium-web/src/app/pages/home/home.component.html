@@ -1,72 +1,117 @@
 <div class="row">
   <div class="col text-center pt-5">
-    <h1 class="text-light">Welcome To Clonium</h1>
-    <h2 class="text-success mb-5">This is an open alpha version, the game development is still in progress</h2>
+    <div>
+      <img src="assets/img/LogoFinal.png" width="350">
+      <br>
+      <button class="btn btn-outline-primary mr-3 home-btn" (click)="displayCreateModal=true">Create Room</button>
+      <a routerLink="/join-room">
+        <button class="btn btn-outline-primary home-btn">Join Room</button>
+      </a>
+    </div>
 
-    <button class="btn btn-outline-primary mr-3" (click)="displayCreateModal=true">Create Room</button>
-    <a routerLink="/join-room"><button class="btn btn-outline-primary">Join Room</button></a>
 
-    <h6 class="text-light mt-5 font-weight-lighter">
-      Developed by : Rafaa Seddik & Ahmed Khalil Seddik
-    </h6>
+    <div class="col-12 text-center"><h1 class="text-dark font-weight-bolder mt-4 mb-3 d-inline-block pointer" (click)="showRules=!showRules">How To Play ?</h1></div>
+    <div class="row text-justify px-3" *ngIf="showRules">
+      <div class="col-12 col-md-6 rule-box">Every Player starts with one piece with the value 3.
+        Every player's pieces have the same color :
+        <div class="row">
+          <div class="col-6">Player 1 : <span class="font-weight-bolder blue-color">Blue</span></div>
+          <div class="col-6">Player 2 : <span class="font-weight-bolder red-color">Red</span></div>
+          <div class="col-6">Player 3 : <span class="font-weight-bolder green-color">Green</span></div>
+          <div class="col-6">Player 4 : <span class="font-weight-bolder yellow-color">Yellow</span></div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 rule-box">At each player's turn, he must click on one of his pieces, by doing so, the pieces value will be incremented by 1.</div>
+      <div class="col-12 col-md-6 rule-box">When a piece reaches the value 4, it explodes. When a piece explodes it gets deleted and it increments all its neighboring pieces (up,down,left,right) and their colors change to the exploding piece's color.</div>
+      <div class="col-12 col-md-6 rule-box">For a player to win, all the pieces in the game must consume all his opponents pieces</div>
+    </div>
+    <div *ngIf="!showRules">
+      <p>This game is a web adaptation for the addictive android game <a href="http://4pda.ru/forum/lofiversion/index.php?t632925.html" target="_blank">BCG (Board Games Collection)</a>. <br>Developed as an
+        <a href="https://github.com/rafaaseddik/Clonium-Web">open-source</a> project by Rafaa Seddik and Ahmed Khalil Seddik.</p>
+    </div>
+
+
   </div>
 </div>
 
 <div class="create-room-modal" *ngIf="displayCreateModal">
-  <div class="modal-body">
-    <h3>Create Room</h3>
+  <div class="modal-body text-center">
+    <h3 class="text-center mb-4">Create Room</h3>
+
+
     <fieldset class="form-group">
       <div class="row">
-        <legend class="col-form-label col-sm-4 pt-0">Multiplayer mode</legend>
-        <div class="col-sm-8">
-          <div class="form-check"><input class="form-check-input" type="radio" name="multiplayerMode" id="radiosingle"
-                                         value="single" [(ngModel)]="multiplayerMode"><label
-            class="form-check-label" for="radiosingle">Single Device Game</label><br></div>
-          <div class="form-check"><input class="form-check-input" type="radio" name="multiplayerMode" id="radioonline"
-                                         value="online" [(ngModel)]="multiplayerMode"><label
-            class="form-check-label" for="radioonline">Online Game</label></div>
+        <legend class="col-form-label col-sm-12 pt-0 text-center">Multiplayer mode</legend>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="offset-2 col-4 p-2 text-center small mode-selector"
+                 [class.selectedMode]="multiplayerMode=='single'" (click)="selectGameMode('single')">
+              <img src="assets/img/battle.png" width="60">
+              <br>Single Device
+            </div>
+            <div class="col-4 p-2 text-center small mode-selector" [class.selectedMode]="multiplayerMode=='online'"
+                 (click)="selectGameMode('online')">
+              <img src="assets/img/online-game.png" width="60">
+              <br>Online
+            </div>
+
+          </div>
+
         </div>
       </div>
     </fieldset>
 
     <fieldset class="form-group">
       <div class="row">
-        <legend class="col-form-label col-sm-4 pt-0">Number of players</legend>
-        <div class="col-sm-8">
-          <div class="form-check"><input class="form-check-input" type="radio" name="playersNumber" id="radio2"
-                                         [value]="2" [(ngModel)]="playersNumber"><label
-            class="form-check-label" for="radio2">2 Players</label><br></div>
-          <div class="form-check"><input class="form-check-input" type="radio" name="playersNumber" id="radio3"
-                                         [value]="3" [(ngModel)]="playersNumber"><label
-            class="form-check-label" for="radio3">3 Players</label></div>
-          <div class="form-check"><input class="form-check-input" type="radio" name="playersNumber" id="radio4"
-                                         [value]="4" [(ngModel)]="playersNumber"><label
-            class="form-check-label" for="radio4">4 Players</label></div>
+        <legend class="col-form-label col-sm-12 pt-0 text-center">Number of players</legend>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="offset-3 col-2 p-2 text-center small players-selector"
+                 [class.selectedPlayers]="playersNumber==2" (click)="playersNumber=2">
+              <h3 class="players-number">2</h3>
+              <br>Players
+            </div>
+            <div class="col-2 p-2 text-center small players-selector" [class.selectedPlayers]="playersNumber==3"
+                 (click)="playersNumber=3">
+              <h3 class="players-number">3</h3>
+              <br>Players
+            </div>
+            <div class="col-2 p-2 text-center small players-selector" [class.selectedPlayers]="playersNumber==4"
+                 (click)="playersNumber=4">
+              <h3 class="players-number">4</h3>
+              <br>Players
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>
 
     <fieldset class="form-group">
       <div class="row">
-        <legend class="col-form-label col-sm-4 pt-0">Map</legend>
-        <div class="col-sm-8">
-          <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect1" value="rect1"
-                                         [(ngModel)]="map"><label
-            class="form-check-label mb-1" for="radiorect1"><img src="assets/img/1.jpg" width="60"></label><br></div>
-          <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect2" value="rect2"
-                                         [(ngModel)]="map"><label
-            class="form-check-label mb-1" for="radiorect2"><img src="assets/img/2.jpg" width="60"></label><br></div>
-          <div class="form-check"><input class="form-check-input" type="radio" name="map" id="radiorect3" value="rect3"
-                                         [(ngModel)]="map"><label
-            class="form-check-label mb-1" for="radiorect3"><img src="assets/img/3.jpg" width="60"></label></div>
+        <legend class="col-form-label col-sm-12 text-center pt-0">Map</legend>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="offset-3 col-2 p-2 map-selector" (click)="selectMap('rect1')"
+                 [class.selectedMap]="map=='rect1'">
+              <img src="assets/img/1.jpg" width="60">
+            </div>
+            <div class="col-2 p-2 map-selector" (click)="selectMap('rect2')" [class.selectedMap]="map=='rect2'">
+              <img src="assets/img/2.jpg" width="60">
+            </div>
+            <div class="col-2 p-2 map-selector" (click)="selectMap('rect3')" [class.selectedMap]="map=='rect3'">
+              <img src="assets/img/3.jpg" width="60">
+            </div>
+          </div>
+
         </div>
       </div>
     </fieldset>
 
-    <button class="btn btn-outline-dark" *ngIf="multiplayerMode=='online'" (click)="createOnlineGame()">Create Room Link</button>
-    <button class="btn btn-outline-dark" *ngIf="multiplayerMode=='single'" (click)="createSingleDeviceGame()">Start Game</button>
-    <button class="btn ml-2 btn-outline-danger" (click)="displayCreateModal=false">Cancel</button>
+    <button class="btn btn-start-game" (click)="createGame()">Start Game</button>
+    <button class="btn ml-2 text-danger" (click)="displayCreateModal=false">Cancel</button>
 
   </div>
 </div>
+
+
 

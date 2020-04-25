@@ -16,9 +16,13 @@ export class SameDeviceRoomComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.board = this.gameService.currentBoard;
-    this.board.presentPlayers = this.board.playersNumber;
-    if (!this.board) {
+    if(this.gameService.currentBoard) {
+      this.board = this.gameService.currentBoard;
+
+
+      this.board.presentPlayers = this.board.playersNumber;
+    }
+    else {
       this.router.navigate(['home']);
     }
   }

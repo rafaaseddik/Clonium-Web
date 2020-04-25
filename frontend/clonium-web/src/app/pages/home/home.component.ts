@@ -13,13 +13,20 @@ export class HomeComponent implements OnInit {
   multiplayerMode = 'single';
   playersNumber:number = 2;
   map = 'rect1';
-
+  showRules = false;
   constructor(private router: Router, private gameService: GameService,private roomService:RoomService) {
   }
 
   ngOnInit() {
   }
 
+
+  createGame(){
+    if(this.multiplayerMode=='single')
+      this.createSingleDeviceGame();
+    else
+      this.createOnlineGame();
+  }
   createSingleDeviceGame() {
     this.gameService.createBoard(this.map,this.playersNumber);
     this.router.navigate(['room/single-device']);
@@ -30,6 +37,12 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['room/online'])
     });
 
+  }
+  selectGameMode(mode:string){
+    this.multiplayerMode = mode;
+  }
+  selectMap(mapName:string){
+    this.map = mapName;
   }
 
 
