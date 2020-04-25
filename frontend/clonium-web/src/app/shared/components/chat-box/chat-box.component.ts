@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Player} from '../../models/player.model';
 import {Message} from '../../models/message.model';
 import {RoomService} from '../../../core/services/room.service';
@@ -9,28 +9,59 @@ import {RoomService} from '../../../core/services/room.service';
 })
 export class ChatBoxComponent implements OnInit {
 
-  currentMessage:string;
-  @Input() player:Player = Player.PLAYER_1;
-  messages : Message[] = []
-  displayInbox:boolean = false;
-  Player=Player;
-  constructor(private roomService:RoomService) { }
+  @ViewChild('scrollerList', {static: false}) scrollList;
+
+  currentMessage: string;
+  @Input() player: Player = Player.PLAYER_1;
+
+
+  messages: Message[] = [];
+  displayInbox: boolean = false;
+  Player = Player;
+
+  hasNewMessage = false;
+  constructor(private roomService: RoomService) {
+  }
 
 
   ngOnInit() {
 
-    this.roomService.receiveMessage.asObservable().subscribe(message=>{
+    this.roomService.receiveMessage.asObservable().subscribe(message => {
       this.messages.push(message);
-    })
+      if(this.displayInbox == false)
+        this.hasNewMessage = true;
+      setTimeout(() => this.scrollToBottom(), 30);
+    });
   }
-  submitByEnter(event){
-    if (event.key === 'Enter'){
-      this.sendMessage()
+
+  submitByEnter(event) {
+    if (event.key === 'Enter') {
+      this.sendMessage();
     }
   }
-  sendMessage(){
-    this.roomService.sendMessage(this.currentMessage,this.player);
-    this.currentMessage="";
+
+  sendMessage() {
+    if (this.currentMessage.length) {
+      this.roomService.sendMessage(this.currentMessage, this.player);
+      this.currentMessage = '';
+      setTimeout(() => this.scrollToBottom(), 30);
+    }
+
+  }
+
+  openBox() {
+    this.displayInbox = true;
+    this.hasNewMessage = false;
+    setTimeout(() => this.scrollToBottom(), 30);
+  }
+
+  scrollToBottom(): void {
+    try {
+      if (this.displayInbox) {
+        this.scrollList.nativeElement.scrollTop = this.scrollList.nativeElement.scrollHeight;
+      }
+    } catch (err) {
+    }
   }
 
 }

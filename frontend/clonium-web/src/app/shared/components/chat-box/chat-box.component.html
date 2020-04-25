@@ -1,18 +1,29 @@
-<div class="display-inbox"><button class="btn btn-outline-primary" (click)="displayInbox=true" *ngIf="!displayInbox">Messages</button></div>
+<div class="display-inbox" *ngIf="!displayInbox">
+  <button class="btn text-dark" (click)="openBox()">Messages</button>
+  <i class="mdi mdi-email new-messages" *ngIf="hasNewMessage"></i>
+</div>
 <div class="chat-box" *ngIf="displayInbox">
-  <div class="times-btn" (click)="displayInbox=false">X</div>
+
+  <div class="messages-header">Messages
+    <div class="times-btn" (click)="displayInbox=false"><i class="mdi mdi-close"></i></div>
+  </div>
   <div class="messages-list">
-    <div class="message-scroller">
+    <div class="message-scroller" #scrollerList>
       <div class="message" *ngFor="let message of messages" [class.from-me]="message.sender ==player">
-        <img src="assets/img/cell/blue.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_1">
-        <img src="assets/img/cell/red.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_2">
-        <img src="assets/img/cell/green.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_3">
-        <img src="assets/img/cell/yellow.png" width="20px" height="20px" *ngIf="message.sender==Player.PLAYER_4">
-        <p>{{message.text}}</p>
+        <img src="assets/img/cell/blue.png" width="15px" height="15px" *ngIf="message.sender==Player.PLAYER_1">
+        <img src="assets/img/cell/red.png" width="15px" height="15px" *ngIf="message.sender==Player.PLAYER_2">
+        <img src="assets/img/cell/green.png" width="15px" height="15px" *ngIf="message.sender==Player.PLAYER_3">
+        <img src="assets/img/cell/yellow.png" width="15px" height="15px" *ngIf="message.sender==Player.PLAYER_4">
+        <p [ngClass]="{
+        'msg-p1':message.sender==Player.PLAYER_1,
+        'msg-p2':message.sender==Player.PLAYER_2,
+        'msg-p3':message.sender==Player.PLAYER_3,
+        'msg-p4':message.sender==Player.PLAYER_4
+        }">{{message.text}}</p>
       </div>
     </div>
   </div>
   <div class="send-message">
-    <input class="form-control-sm" name="submit" [(ngModel)]="currentMessage" (keyup.enter)="sendMessage()"><button class="btn btn-outline-dark" (click)="sendMessage()">Send</button>
+    <input class="form-control-sm" name="submit" [(ngModel)]="currentMessage" (keyup.enter)="sendMessage()"><i class="mdi mdi-send" (click)="sendMessage()"></i>
   </div>
 </div>
