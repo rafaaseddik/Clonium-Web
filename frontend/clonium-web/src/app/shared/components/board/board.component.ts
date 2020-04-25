@@ -138,7 +138,7 @@ export class BoardComponent implements OnInit {
       this.board.currentState = nextGameState(Player.PLAYER_4,this.board.playersNumber);
     }
     this.updateScore();
-    if(this.board.lostPlayers.includes(this.board.currentState)){
+    if(this.board.lostPlayers.has(this.board.currentState) && this.board.lostPlayers.size!=this.board.playersNumber-1){
       this.nextRole()
     }
   }
@@ -183,31 +183,32 @@ export class BoardComponent implements OnInit {
     if(this.board.playersNumber==4)
       this.player4Score = (_.flatten(this.board.playedCells) as Array<Cell>).filter(cell => cell.player === Player.PLAYER_4).length;
 
-    if (this.player1Score === 0 && !this.board.lostPlayers.includes(GameState.PLAYER_1)) {
-      this.board.lostPlayers.push(GameState.PLAYER_1)
+    if (this.player1Score === 0 && !this.board.lostPlayers.has(GameState.PLAYER_1)) {
+      this.board.lostPlayers.add(GameState.PLAYER_1)
     }
-    if (this.player2Score === 0 && !this.board.lostPlayers.includes(GameState.PLAYER_2)) {
-      this.board.lostPlayers.push(GameState.PLAYER_2)
+    if (this.player2Score === 0 && !this.board.lostPlayers.has(GameState.PLAYER_2)) {
+      this.board.lostPlayers.add(GameState.PLAYER_2)
     }
-    if (this.player3Score === 0 && !this.board.lostPlayers.includes(GameState.PLAYER_3)) {
-      this.board.lostPlayers.push(GameState.PLAYER_3)
+    if (this.player3Score === 0 && !this.board.lostPlayers.has(GameState.PLAYER_3) && this.board.playersNumber>2) {
+      this.board.lostPlayers.add(GameState.PLAYER_3)
     }
-    if (this.player4Score === 0 && !this.board.lostPlayers.includes(GameState.PLAYER_4)) {
-      this.board.lostPlayers.push(GameState.PLAYER_4)
+    if (this.player4Score === 0 && !this.board.lostPlayers.has(GameState.PLAYER_4) && this.board.playersNumber>3) {
+      this.board.lostPlayers.add(GameState.PLAYER_4)
     }
-    if(this.board.lostPlayers.length==this.board.playersNumber-1){
-      if(!this.board.lostPlayers.includes(GameState.PLAYER_1)){
+    if(this.board.lostPlayers.size==this.board.playersNumber-1){
+      if(!this.board.lostPlayers.has(GameState.PLAYER_1)){
         this.board.currentState = GameState.PLAYER_1_WON
       }
-      if(!this.board.lostPlayers.includes(GameState.PLAYER_2)){
+      else if(!this.board.lostPlayers.has(GameState.PLAYER_2)){
         this.board.currentState = GameState.PLAYER_2_WON
       }
-      if(!this.board.lostPlayers.includes(GameState.PLAYER_3)){
+      else if(!this.board.lostPlayers.has(GameState.PLAYER_3)){
         this.board.currentState = GameState.PLAYER_3_WON
       }
-      if(!this.board.lostPlayers.includes(GameState.PLAYER_4)){
+      else if(!this.board.lostPlayers.has(GameState.PLAYER_4)){
         this.board.currentState = GameState.PLAYER_4_WON
       }
     }
+
   }
 }

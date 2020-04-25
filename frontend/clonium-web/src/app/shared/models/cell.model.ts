@@ -16,6 +16,9 @@ export class Cell {
 
   increment(newPlayer: Player) {
     this.value = this.value + 1;
+    if(this.value>4){
+      this.value=4;
+    }
     this.player = newPlayer;
   }
 

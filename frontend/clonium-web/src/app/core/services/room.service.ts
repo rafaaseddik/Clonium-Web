@@ -106,7 +106,6 @@ export class RoomService {
     }))
   }
   sendMessage(message:string,player:Player){
-    console.log("sending",this.roomID,message,player)
     this.socket.emit('send-msg',this.roomID,message,player);
   }
   emitMove(player:Player,cell:Cell){
