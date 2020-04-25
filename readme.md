@@ -1,5 +1,7 @@
 # Clonium
 
+![alt text](https://clonium.herokuapp.com/assets/img/LogoFinal.png "Logo Title Text 1")
+
 ### About and backstory
 This game is a web adaptation for the addictive android game [BCG (Board Games Collection)](http://4pda.ru/forum/lofiversion/index.php?t632925.html).
 
@@ -27,7 +29,7 @@ As a first version of the game, it has only the basic functionnalities for an on
 We are accepting contributors, you can add a pull request and we will review any contribution to this project.
 
 ### Licence : 
-This open-source project is licenced by Apache Licence 2.0
+This open-source project is licenced by Apache License 2.0
 ### Authors
 -   Mohamed Rafaa Seddik
 -   Ahmed Khalil Seddik
