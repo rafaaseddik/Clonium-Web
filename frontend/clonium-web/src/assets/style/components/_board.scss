@@ -40,6 +40,12 @@
       &.empty{
         background-color: #eee;
       }
+      .lastMove{
+        position: absolute;
+        top:0;bottom:0;left:0;right:0;
+        box-shadow: 0 0 17px -4px #000000dd inset;
+        animation: animationBlink ease-in-out 0.5s;
+      }
       &.player1{
         background: #eee;
         &.value-1{

@@ -2,10 +2,16 @@
   <div class="col-12 offset-sm-3 col-sm-6">
     <div class="scoreboard">
       <h4 class="mt-2">Score</h4>
-      <div class="player-icon-holder"><img src="assets/img/cell/blue.png" width="30px" height="30px"> </div> <div>{{player1Score}}</div>
-      <div class="player-icon-holder"><img src="assets/img/cell/red.png" width="30px" height="30px"> </div> <div>{{player2Score}}</div>
-      <div class="player-icon-holder" *ngIf="board.playersNumber>2"><img src="assets/img/cell/green.png" width="30px" height="30px"> </div> <div *ngIf="board.playersNumber>2">{{player3Score}}</div>
-      <div class="player-icon-holder" *ngIf="board.playersNumber>3"><img src="assets/img/cell/yellow.png" width="30px" height="30px"> </div> <div *ngIf="board.playersNumber>3">{{player4Score}}</div>
+      <div class="player-icon-holder"><img src="assets/img/cell/blue.png" width="30px" height="30px"></div>
+      <div>{{player1Score}}</div>
+      <div class="player-icon-holder"><img src="assets/img/cell/red.png" width="30px" height="30px"></div>
+      <div>{{player2Score}}</div>
+      <div class="player-icon-holder" *ngIf="board.playersNumber>2"><img src="assets/img/cell/green.png" width="30px"
+                                                                         height="30px"></div>
+      <div *ngIf="board.playersNumber>2">{{player3Score}}</div>
+      <div class="player-icon-holder" *ngIf="board.playersNumber>3"><img src="assets/img/cell/yellow.png" width="30px"
+                                                                         height="30px"></div>
+      <div *ngIf="board.playersNumber>3">{{player4Score}}</div>
     </div>
   </div>
   <div class="col-12">
@@ -13,40 +19,51 @@
       <div *ngFor="let row of board.playedCells" class="board-row">
         <div *ngFor="let cell of row" [class]="'board-cell '+cell.getPlayer()" (click)="increment(cell)"
              [class.clickable]="board.currentState==playerToGameState(cell.player)"
-              [class.pointer]="board.currentState==playerToGameState(cell.player) && (!isOnline || cell.player==currentPlayer)">
+             [class.pointer]="board.currentState==playerToGameState(cell.player) && (!isOnline || cell.player==currentPlayer)">
           <div class="cell-explosion cell-explosion-up" *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y-1)"></div>
-          <div class="cell-explosion cell-explosion-bottom" *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y+1)"></div>
-          <div class="cell-explosion cell-explosion-right" *ngIf="cell.value==4 && board.canPlay(cell.x+1,cell.y)"></div>
+          <div class="cell-explosion cell-explosion-bottom"
+               *ngIf="cell.value==4 && board.canPlay(cell.x,cell.y+1)"></div>
+          <div class="cell-explosion cell-explosion-right"
+               *ngIf="cell.value==4 && board.canPlay(cell.x+1,cell.y)"></div>
           <div class="cell-explosion cell-explosion-left" *ngIf="cell.value==4 && board.canPlay(cell.x-1,cell.y)"></div>
+          <div class="lastMove" *ngIf="lastMove && cell.x==lastMove.x && cell.y==lastMove.y"></div>
           <!--<div class="board-value" *ngIf="cell.value>0">{{cell.value}}</div>-->
         </div>
       </div>
       <div class="winning-overlay" *ngIf="isOnline && board.playersNumber>board.presentPlayers">
         <h1 class="text-light">Waiting for other players</h1>
 
-        <div><label class="text-warning">Room ID</label><input class="form-control mx-2" [value]="roomID" (click)="copyToClipboard($event)"></div>
+        <div><label class="text-warning">Room ID</label><input class="form-control mx-2" [value]="roomID"
+                                                               (click)="copyToClipboard($event)"></div>
       </div>
-      <div class="winning-overlay" *ngIf="board.currentState==GameState.PLAYER_1_WON || board.currentState==GameState.PLAYER_2_WON|| board.currentState==GameState.PLAYER_3_WON|| board.currentState==GameState.PLAYER_4_WON">
-          <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_1_WON">Player <img src="assets/img/cell/blue.png" width="50px" height="50px"> Won!</h1>
-          <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_2_WON">Player <img src="assets/img/cell/red.png" width="50px" height="50px"> Won!</h1>
-          <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_3_WON">Player <img src="assets/img/cell/green.png" width="50px" height="50px"> Won!</h1>
-          <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_4_WON">Player <img src="assets/img/cell/yellow.png" width="50px" height="50px"> Won!</h1>
+      <div class="winning-overlay"
+           *ngIf="board.currentState==GameState.PLAYER_1_WON || board.currentState==GameState.PLAYER_2_WON|| board.currentState==GameState.PLAYER_3_WON|| board.currentState==GameState.PLAYER_4_WON">
+        <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_1_WON">Player <img
+          src="assets/img/cell/blue.png" width="50px" height="50px"> Won!</h1>
+        <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_2_WON">Player <img
+          src="assets/img/cell/red.png" width="50px" height="50px"> Won!</h1>
+        <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_3_WON">Player <img
+          src="assets/img/cell/green.png" width="50px" height="50px"> Won!</h1>
+        <h1 class="text-light" *ngIf="board.currentState==GameState.PLAYER_4_WON">Player <img
+          src="assets/img/cell/yellow.png" width="50px" height="50px"> Won!</h1>
         <button class="btn btn-outline-light px-4">Replay</button>
-        <a routerLink="/home"><button class="ml-2 btn btn-outline-light px-2" >Home Page</button></a>
+        <a routerLink="/home">
+          <button class="ml-2 btn btn-outline-light px-2">Home Page</button>
+        </a>
 
       </div>
     </div>
   </div>
 
   <div class="col-12 offset-sm-3 col-sm-6" *ngIf="isOnline">
-    <h5 class="mt-2 text-dark text-center" *ngIf="board.currentState==playerToGameState(currentPlayer);else opponent">Your turn</h5>
+    <h5 class="mt-2 text-dark text-center" *ngIf="board.currentState==playerToGameState(currentPlayer);else opponent">
+      Your turn</h5>
     <ng-template #opponent>
       <h5 class="mt-2 text-dark text-center">Wait for your opponent</h5>
     </ng-template>
 
   </div>
 </div>
-
 
 
 <app-chat-box [player]="currentPlayer" *ngIf="isOnline"></app-chat-box>

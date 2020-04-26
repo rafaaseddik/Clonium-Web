@@ -62,3 +62,12 @@
     transform:  translate(-100%,0px);
   }
 }
+
+@keyframes animationBlink{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}

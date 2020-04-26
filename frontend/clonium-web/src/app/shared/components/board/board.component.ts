@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit {
   playerToGameState = playerToGameState;
   GameState = GameState;
   Player = Player;
-
+  lastMove:Cell;
   player1Score = 0;
   player2Score = 0;
   player3Score = 0;
@@ -144,6 +144,7 @@ export class BoardComponent implements OnInit {
   }
 
   async increment(cell: Cell) {
+    this.lastMove=null;
     if (this.board.currentState === GameState.PLAYER_1 && cell.player === Player.PLAYER_1 && (!this.isOnline || this.currentPlayer == Player.PLAYER_1)) {
       this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_1);
@@ -169,6 +170,7 @@ export class BoardComponent implements OnInit {
   async incrementFromOtherPlayer(x:number,y:number,player:Player) {
     let moveState = playerToGameState(player);
     if (this.board.currentState === moveState &&  this.currentPlayer != player) {
+      this.lastMove = this.board.playedCells[y][x];
       this.board.playedCells[y][x].increment(player);
       this.nextRole();
     }
