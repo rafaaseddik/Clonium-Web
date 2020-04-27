@@ -17,9 +17,9 @@ As a first version of the game, it has only the basic functionnalities for an on
 -   Up to 4 human players playing online
 -   Text chat
 -   3 different map layouts
--	Multiple map sizes
+-   Multiple map sizes
 -   Mobile devices support and a fully Responsive design
-
+-   [NEW] Dark Mode
 ## Future goals
 -   Map Generator
 -   Up to 10 ten players online
