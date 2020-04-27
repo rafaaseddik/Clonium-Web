@@ -23,8 +23,8 @@ export class Board {
     this.playableCells = playableCells;
     this.playedCells = this.playableCells.map((row, y) => row.map((cell, x) => cell ? Cell.EmptyCell(x, y) : Cell.UnplayableCell(x, y)));
 
-    this.offset_x = Math.floor((MAX_WIDTH - width) / 2);
-    this.offset_y = Math.floor((MAX_HEIGHT - height) / 2);
+    this.offset_x = 0;//Math.floor((MAX_WIDTH - width) / 2);
+    this.offset_y = 0;//Math.floor((MAX_HEIGHT - height) / 2);
 
     this.playersNumber=playersNumber;
     this.presentPlayers = 1;
@@ -45,10 +45,10 @@ export class Board {
     if (y - 1 >= 0 && this.playableCells[y - 1][x]) {
       result.push(this.playedCells[y - 1][x]);
     }
-    if (x + 1 < MAX_WIDTH && this.playableCells[y][x + 1]) {
+    if (x + 1 < this.width && this.playableCells[y][x + 1]) {
       result.push(this.playedCells[y][x + 1]);
     }
-    if (y + 1 < MAX_HEIGHT && this.playableCells[y + 1][x]) {
+    if (y + 1 < this.height && this.playableCells[y + 1][x]) {
       result.push(this.playedCells[y + 1][x]);
     }
     return result;
@@ -57,7 +57,7 @@ export class Board {
 
 
   canPlay(x, y) {
-    if (x < 0 || y < 0 || x >= MAX_WIDTH || y >= MAX_HEIGHT || !this.playableCells[y][x]) {
+    if (x < 0 || y < 0 || x >= this.width || y >= this.height || !this.playableCells[y][x]) {
       return false;
     } else {
       return true;
