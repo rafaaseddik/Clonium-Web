@@ -1,7 +1,10 @@
-export const MAX_WIDTH = 8;
-export const MAX_HEIGHT = 8;
+export const MAX_WIDTH = 12;
+export const MAX_HEIGHT = 12;
 const INITIAL_BOARD = Array(MAX_HEIGHT).fill(Array(MAX_WIDTH).fill(false));
 
+function initialBoard(width:number,height:number){
+  return Array(height).fill(Array(width).fill(false))
+}
 export function RectangularLayout(width: number, height: number): boolean[][] {
   if (width <= 0 || width > MAX_WIDTH) {
     throw new RangeError(`Width must be between 1 and ${MAX_WIDTH} inclusive`);
@@ -10,10 +13,10 @@ export function RectangularLayout(width: number, height: number): boolean[][] {
     throw new RangeError(`Height must be between 1 and ${MAX_HEIGHT} inclusive`);
   }
 
-  let offset_x = Math.floor((MAX_WIDTH - width) / 2);
-  let offset_y = Math.floor((MAX_HEIGHT - height) / 2);
+  let offset_x = 0;//Math.floor((width - width) / 2);
+  let offset_y = 0;//Math.floor((height - height) / 2);
 
-  return INITIAL_BOARD.map((row, y) => row.map((cell, x) => {
+  return initialBoard(width,height).map((row, y) => row.map((cell, x) => {
 
     if (x < offset_x || y < offset_y || (x - offset_x) >= width || (y - offset_y) >= height) {
       return false;
@@ -32,12 +35,12 @@ export function TwoRectangulesLayout(w1: number, h1: number, w2: number, h2: num
     throw new RangeError(`Height must be between 1 and ${MAX_HEIGHT} inclusive`);
   }
 
-  let offset_x = Math.floor((MAX_WIDTH - w1) / 2);
-  let offset_y = Math.floor((MAX_HEIGHT - h1) / 2);
+  let offset_x = 0;//Math.floor((MAX_WIDTH - w1) / 2);
+  let offset_y = 0;//Math.floor((MAX_HEIGHT - h1) / 2);
   let offset_x1 = Math.floor((w1 - w2) / 2) + offset_x;
   let offset_y1 = Math.floor((h1 - h2) / 2) + offset_y;
 
-  return INITIAL_BOARD.map((row, y) => row.map((cell, x) => {
+  return initialBoard(w1,h1).map((row, y) => row.map((cell, x) => {
 
     if (x < offset_x || y < offset_y || (x - offset_x) >= w1 || (y - offset_y) >= h1) {
       return false;
@@ -59,12 +62,12 @@ export function RectangularAndSquaresLayout(width, height, squareSide): boolean[
     throw new RangeError(`Height must be between 1 and ${MAX_HEIGHT} inclusive`);
   }
 
-  let offset_x = Math.floor((MAX_WIDTH - width) / 2);
-  let offset_y = Math.floor((MAX_HEIGHT - height) / 2);
+  let offset_x = 0;//Math.floor((MAX_WIDTH - width) / 2);
+  let offset_y = 0;//Math.floor((MAX_HEIGHT - height) / 2);
   let offset_x1 = Math.floor((4) / 2) + offset_x;
   let offset_y1 = Math.floor((4) / 2) + offset_y;
 
-  return INITIAL_BOARD.map((row, y) => row.map((cell, x) => {
+  return initialBoard(width,height).map((row, y) => row.map((cell, x) => {
 
     if (x < offset_x || y < offset_y || (x - offset_x) >= width || (y - offset_y) >= height) {
       return false;

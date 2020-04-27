@@ -17,7 +17,7 @@ export class JoinRoomComponent implements OnInit {
 
   submit(){
     this.roomService.joinRoom(this.roomID).then(result=>{
-      this.gameService.joinOnlineBoard(result.mapName,result.playersNumber,result.currentPlayer);
+      this.gameService.joinOnlineBoard(result.mapName,result.playersNumber,result.currentPlayer,result.side);
       this.router.navigate(['room/online'])
     }).catch(e=>{
       Swal.fire({html:'Room not found',icon:'error'})

@@ -3,7 +3,8 @@ const RoomService = require('../services/room.service')
 router.post('/create',(req,res)=>{
     let mapName = req.body.mapName;
     let playersNumber = req.body.playersNumber;
-    let roomID = RoomService.createRoom(mapName,playersNumber);
+    let side = req.body.side;
+    let roomID = RoomService.createRoom(mapName,playersNumber,side);
     res.json({
         status:200,
         success:true,

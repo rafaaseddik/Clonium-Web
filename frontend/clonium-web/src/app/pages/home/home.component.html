@@ -107,6 +107,36 @@
       </div>
     </fieldset>
 
+    <fieldset class="form-group">
+      <div class="row">
+        <legend class="col-form-label col-sm-12 pt-0 text-center">Map Size</legend>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="offset-2 col-2 p-2 text-center small players-selector" [class.selectedSize]="side==6"
+                 (click)="side=6">
+              <h5 class="players-number">6x6</h5>
+              <br>Small
+            </div>
+            <div class="col-2 p-2 text-center small players-selector" [class.selectedSize]="side==8"
+                 (click)="side=8">
+              <h5 class="players-number">8x8</h5>
+              <br>Medium
+            </div>
+            <div class="col-2 p-2 text-center small players-selector" [class.selectedSize]="side==10"
+                 (click)="side=10">
+              <h5 class="players-number">10x10</h5>
+              <br>Big
+            </div>
+            <div class="col-2 p-2 text-center small players-selector" [class.selectedSize]="side==12"
+                 (click)="side=12">
+              <h5 class="players-number">12x12</h5>
+              <br>Epic
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
     <button class="btn btn-start-game" (click)="createGame()">Start Game</button>
     <button class="btn ml-2 text-danger" (click)="displayCreateModal=false">Cancel</button>
 

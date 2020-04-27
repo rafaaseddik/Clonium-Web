@@ -6,9 +6,9 @@ let rooms = [
 ]
 
 module.exports = {
-    createRoom(mapName,playersNumber){
+    createRoom(mapName,playersNumber,side){
         let hash = md5((new Date()).getTime().toString()+"Room");
-        let room = new Room(hash,mapName,playersNumber);
+        let room = new Room(hash,mapName,playersNumber,side);
         room.onlinePlayers = 1;
         rooms.push(room);
         return hash;

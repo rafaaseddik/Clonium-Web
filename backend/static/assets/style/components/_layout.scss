@@ -57,7 +57,7 @@ body {
         background: #ff004033;
       }
 
-      &.selectedPlayers {
+      &.selectedPlayers,&.selectedSize {
         box-shadow: 0px 0px 1px 2px #ff0040 inset;
       }
     }

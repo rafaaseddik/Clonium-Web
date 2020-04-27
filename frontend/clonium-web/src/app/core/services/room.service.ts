@@ -42,11 +42,12 @@ export class RoomService {
     })
   }
 
-  createRoom(mapName:string,playersNumber:number): Promise<Board> {
+  createRoom(mapName:string,playersNumber:number,side:number): Promise<Board> {
     return new Promise<Board>(((resolve, reject) => {
       let body = {
         mapName:mapName,
-        playersNumber:playersNumber
+        playersNumber:playersNumber,
+        side:side
       }
       this.http.post(environment.API_URL + 'room/create', body).subscribe(responseJSON => {
         if (responseJSON['success']) {
@@ -65,7 +66,7 @@ export class RoomService {
     }));
   }
 
-  joinRoom(roomID: string): Promise<{mapName:string,playersNumber:number,currentPlayer:Player}> {
+  joinRoom(roomID: string): Promise<{mapName:string,playersNumber:number,currentPlayer:Player,side:number}> {
     return new Promise(((resolve, reject) => {
       const body = {
         roomID: roomID
@@ -83,7 +84,11 @@ export class RoomService {
             default:currentPlayer = Player.PLAYER_2;
           }
           resolve(
-            {mapName:responseJSON['board'].room.board,playersNumber:responseJSON['board'].room.playersNumber,currentPlayer:currentPlayer})
+            {
+              mapName:responseJSON['board'].room.board,
+              playersNumber:responseJSON['board'].room.playersNumber,
+              currentPlayer:currentPlayer,
+              side:responseJSON['board'].room.side})
         }else{
           reject()
         }

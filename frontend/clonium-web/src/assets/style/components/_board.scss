@@ -17,6 +17,11 @@
     justify-content: center;
     flex-wrap: wrap;
     h1{
+      flex-grow: 3;
+      flex-basis: 100%;
+      text-align: center;
+    }
+    h6{
       flex-grow: 1;
       flex-basis: 100%;
       text-align: center;

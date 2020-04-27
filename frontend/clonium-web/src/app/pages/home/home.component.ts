@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   playersNumber:number = 2;
   map = 'rect1';
   showRules = false;
+  side:number=8;
   constructor(private router: Router, private gameService: GameService,private roomService:RoomService) {
   }
 
@@ -28,12 +29,12 @@ export class HomeComponent implements OnInit {
       this.createOnlineGame();
   }
   createSingleDeviceGame() {
-    this.gameService.createBoard(this.map,this.playersNumber);
+    this.gameService.createBoard(this.map,this.playersNumber,this.side);
     this.router.navigate(['room/single-device']);
   }
   createOnlineGame(){
-    this.roomService.createRoom(this.map,this.playersNumber).then((roomID)=>{
-      this.gameService.createOnlineBoard(this.map,this.playersNumber);
+    this.roomService.createRoom(this.map,this.playersNumber,this.side).then((roomID)=>{
+      this.gameService.createOnlineBoard(this.map,this.playersNumber,this.side);
       this.router.navigate(['room/online'])
     });
 
