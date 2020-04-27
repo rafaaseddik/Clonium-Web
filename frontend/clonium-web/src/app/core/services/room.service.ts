@@ -121,6 +121,7 @@ export class RoomService {
       case Player.PLAYER_3:playerNumber = 3;break;
       case Player.PLAYER_4:playerNumber = 4;break;
     }
-    this.socket.emit('move',this.roomID,playerNumber,cell.x,cell.y)
+    if(this.roomID)
+      this.socket.emit('move',this.roomID,playerNumber,cell.x,cell.y)
   }
 }

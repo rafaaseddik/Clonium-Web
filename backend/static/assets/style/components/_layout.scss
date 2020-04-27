@@ -14,6 +14,9 @@ body {
     right: 0;
     opacity: 0.1;
   }*/
+  .d-in-black{
+    display: none;
+  }
 }
 .home-btn{
   width:150px;
@@ -80,6 +83,7 @@ body {
   }
 }
 .footer-container{
+  opacity: 0.5;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -91,5 +95,6 @@ body {
 
 .rule-box{
   margin-bottom: 15px;
+  font-size: 15px;
   border-left: 4px solid black;
 }

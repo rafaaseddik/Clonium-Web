@@ -1,8 +1,8 @@
 <router-outlet></router-outlet>
-<!--<table>
-  <tr *ngFor="let row of b">
-    <td *ngFor="let cell of row" [ngClass]="{'playable':cell}">
-      {{cell?"X":"O"}}
-    </td>
-  </tr>
-</table>-->
+
+<div class="dark-mode-bubble" *ngIf="!hasDarkModeSet">Activate Dark Mode from here <i class="mdi mdi-arrow-right-bold"></i></div>
+<label class="dark-switch" (click)="toggleDarkMode()">
+  <input type="checkbox" [checked]="isDarkMode">
+  <span class="slider round"></span>
+</label>
+

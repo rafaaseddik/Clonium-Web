@@ -146,21 +146,25 @@ export class BoardComponent implements OnInit {
   async increment(cell: Cell) {
     this.lastMove=null;
     if (this.board.currentState === GameState.PLAYER_1 && cell.player === Player.PLAYER_1 && (!this.isOnline || this.currentPlayer == Player.PLAYER_1)) {
-      this.roomService.emitMove(this.currentPlayer, cell);
+      if(this.isOnline)
+        this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_1);
       this.nextRole();
     } else if (this.board.currentState === GameState.PLAYER_2 && cell.player === Player.PLAYER_2 && (!this.isOnline || this.currentPlayer == Player.PLAYER_2)) {
-      this.roomService.emitMove(this.currentPlayer, cell);
+      if(this.isOnline)
+        this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_2);
       this.nextRole();
     }
     else if (this.board.currentState === GameState.PLAYER_3 && cell.player === Player.PLAYER_3 && (!this.isOnline || this.currentPlayer == Player.PLAYER_3)) {
-      this.roomService.emitMove(this.currentPlayer, cell);
+      if(this.isOnline)
+        this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_3);
       this.nextRole();
     }
     else if (this.board.currentState === GameState.PLAYER_4 && cell.player === Player.PLAYER_4 && (!this.isOnline || this.currentPlayer == Player.PLAYER_4)) {
-      this.roomService.emitMove(this.currentPlayer, cell);
+      if(this.isOnline)
+        this.roomService.emitMove(this.currentPlayer, cell);
       cell.increment(Player.PLAYER_4);
       this.nextRole();
     }
