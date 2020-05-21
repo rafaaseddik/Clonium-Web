@@ -22,6 +22,8 @@ export class OnlineRoomComponent implements OnInit {
       this.currentPlayer = this.gameService.curentPlayer;
     }
     else {
+      // check persisted session
+
       this.router.navigate(['home']);
     }
   }

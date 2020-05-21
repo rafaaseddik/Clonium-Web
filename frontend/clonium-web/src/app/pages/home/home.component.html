@@ -8,6 +8,7 @@
       <a routerLink="/join-room">
         <button class="btn btn-outline-primary home-btn">Join Room</button>
       </a>
+        <button class="btn btn-outline-primary ml-3 home-btn" (click)="joinOldSession()" *ngIf="hasSession">Continue Game</button>
     </div>
 
 

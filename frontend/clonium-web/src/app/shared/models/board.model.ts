@@ -2,6 +2,7 @@ import {Cell} from './cell.model';
 import {MAX_HEIGHT, MAX_WIDTH} from '../utils/board-layouts';
 import {GameState} from './game-state.model';
 import {Player} from './player.model';
+import * as _ from 'lodash';
 
 export class Board {
   width;
@@ -68,6 +69,19 @@ export class Board {
     this.playedCells[y][x] = cell;
   }
 
+
+  serialize():string{
+
+    return JSON.stringify((_.flatten(this.playedCells) as Array<Cell>)
+      .filter(cell => cell.player === Player.PLAYER_1 || cell.player === Player.PLAYER_2 || cell.player === Player.PLAYER_3|| cell.player === Player.PLAYER_4));
+  }
+  deserialize(serialBoard:string){
+    let rawCellsObject = JSON.parse(serialBoard);
+    rawCellsObject.forEach(rawCell=>{
+      this.setCell(rawCell.x,rawCell.y, new Cell(rawCell.x,rawCell.y,rawCell.player,rawCell.value))
+    })
+    console.log(this.playedCells)
+  }
 
 }
 

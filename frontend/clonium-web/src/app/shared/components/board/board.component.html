@@ -32,9 +32,14 @@
       </div>
       <div class="winning-overlay" *ngIf="isOnline && board.playersNumber>board.presentPlayers">
         <h1 class="text-light">Waiting for other players</h1>
-        <h6 class="blue-color">Player 1 joined</h6>
-        <h6 *ngIf="board.presentPlayers >=2" class="red-color">Player 2 joined</h6>
-        <h6 *ngIf="board.presentPlayers >=3" class="green-color">Player 3 joined</h6>
+        <h6 *ngIf="!noPlayer1" class="blue-color">Player 1 joined</h6>
+        <h6 *ngIf="noPlayer1" class="blue-color">Waiting for Player 1</h6>
+        <h6 *ngIf="!noPlayer2" class="red-color">Player 2 joined</h6>
+        <h6 *ngIf="noPlayer2" class="red-color">Waiting for Player 2</h6>
+        <h6 *ngIf="!noPlayer3 && board.playersNumber>=3" class="green-color">Player 3 joined</h6>
+        <h6 *ngIf="noPlayer3 && board.playersNumber>=3" class="green-color">Waiting for Player 3</h6>
+        <h6 *ngIf="!noPlayer4 && board.playersNumber>=4" class="yellow-color">Player 4 joined</h6>
+        <h6 *ngIf="noPlayer4 && board.playersNumber>=4" class="yellow-color">Waiting for Player 4</h6>
         <div><label class="text-warning">Room ID</label><input class="form-control mx-2" [value]="roomID"
                                                                (click)="copyToClipboard($event)"></div>
       </div>
@@ -67,5 +72,6 @@
   </div>
 </div>
 
+<button (click)="serialize()">Serialize</button>
 
 <app-chat-box [player]="currentPlayer" *ngIf="isOnline"></app-chat-box>

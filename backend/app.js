@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const http = require("http");
 const app = express();
 const ioServer = require('socket.io');
+const RoomService=require('./src/services/room.service')
 
 app.use(bodyParser.urlencoded({extended: true})); // for urlencoded formdate
 app.use(bodyParser.json());// for json form
@@ -66,28 +67,76 @@ let io = ioServer(server);
 
 io.on('connection',(socket)=>{
     console.log("socket connected")
+
+    socket.on('disconnect', () => { 
+        
+        let {roomID,playerNumber} = RoomService.playerDisconnected(socket.id);
+        pingAll(roomID)
+        switch(playerNumber){
+            case 1: io.to(roomID).emit("first_player_joined",false);break;
+            case 2: io.to(roomID).emit("second_player_joined",false);break;
+            case 3: io.to(roomID).emit("third_player_joined",false);break;
+            case 4: io.to(roomID).emit("fourth_player_joined",false);break;
+        }
+    });
     socket.on('create-room',(roomID)=>{
+        console.log(RoomService.rooms)
         console.log("Created room, room ID:",roomID)
+        RoomService.registerPlayer(socket.id,roomID,1)
         socket.join(roomID);
     })
     socket.on('join-room',(roomID,currentPlayerNumber)=>{
-        console.log("Joined room, room ID:",roomID,"player number :",currentPlayerNumber)
+        console.log(RoomService.rooms)
+        RoomService.registerPlayer(socket.id,roomID,currentPlayerNumber)
         socket.join(roomID);
+        pingAll(roomID)
         switch(currentPlayerNumber){
-            case 2: io.to(roomID).emit("second_player_joined");break;
-            case 3: io.to(roomID).emit("third_player_joined");break;
-            case 4: io.to(roomID).emit("fourth_player_joined");break;
+            case 1: io.to(roomID).emit("first_player_joined",true);break;
+            case 2: io.to(roomID).emit("second_player_joined",true);break;
+            case 3: io.to(roomID).emit("third_player_joined",true);break;
+            case 4: io.to(roomID).emit("fourth_player_joined",true);break;
         }
-        
     })
-    socket.on('move',(roomID,player,x,y)=>{
+    socket.on('rejoin-room',(oldSocketID,callback)=>{
+        let result = RoomService.updatePlayerSocket(oldSocketID,socket.id)
+        if(result){
+            pingAll(result.roomID)
+            callback(result.roomID,
+                result.playerNumber,
+                result.mapName,
+                result.playersNumber,
+                result.side, 
+                result.serialBoard,
+                result.lastPlayed)
+        }else{
+            callback(null,null,null,null,null)
+        }
+    })
+    socket.on('move',(roomID,player,x,y,cb)=>{
         console.log("In room "+roomID+", Player N°"+player+" played("+x+","+y+")")
         io.to(roomID).emit('move',player,x,y)
+        cb()
     })
     socket.on('send-msg',(roomID,message,player)=>{
         console.log(roomID,player,message)
         io.to(roomID).emit('receive-message',message,player)
     })
+    socket.on('synchronize-board',(roomID,serialBoard,lastPlayed)=>{
+        RoomService.updateBoardState(roomID,serialBoard,lastPlayed);
+    })
+    socket.on("ping-response",(roomID,playerNumber)=>{
+        switch(playerNumber){
+            case 1: console.log("first_player is alive");io.to(roomID).emit("first_player_joined",true);break;
+            case 2: console.log("second_player is alive");io.to(roomID).emit("second_player_joined",true);break;
+            case 3: console.log("third_player is alive");io.to(roomID).emit("third_player_joined",true);break;
+            case 4: console.log("fourth_player is alive");io.to(roomID).emit("fourth_player_joined",true);break;
+        }
+    })
+    function pingAll(roomID){
+        console.log("Pinging all on room",roomID);
+        io.to(roomID).emit("ping")
+    }
+
 
 })
 server.listen(port,function(){

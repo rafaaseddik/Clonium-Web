@@ -6,6 +6,11 @@ class Room{
         this.playersNumber = playersNumber;
         this.onlinePlayers=1;
         this.side = side;
+        this.playerSession = {
+
+        },
+        this.serialBoard = "";
+        this.lastPlayed=0;
     }
 }
 module.exports = Room;
