@@ -19,7 +19,8 @@ As a first version of the game, it has only the basic functionnalities for an on
 -   3 different map layouts
 -   Multiple map sizes
 -   Mobile devices support and a fully Responsive design
--   [NEW] Dark Mode
+-   Dark Mode
+-   Rejoin a game after disconnection [BETA]
 ## Future goals
 -   Map Generator
 -   Up to 10 ten players online
