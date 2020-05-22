@@ -1,3 +1,4 @@
+// All possible players
 export enum Player {
   UNPLAYABLE,
   NO_PLAYER,

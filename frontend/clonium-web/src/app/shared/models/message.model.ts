@@ -1,5 +1,12 @@
 import {Player} from './player.model';
 
+/**
+ * @description
+ * A message model class
+ *
+ * @author
+ * Rafaa Seddik
+ */
 export class Message{
   sender:Player;
   text:string;

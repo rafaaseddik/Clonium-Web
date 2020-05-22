@@ -1,10 +1,23 @@
+/**
+ * This utilities file contains the functions that generate the Board.PlayableCells matrix
+ */
+
 export const MAX_WIDTH = 12;
 export const MAX_HEIGHT = 12;
-const INITIAL_BOARD = Array(MAX_HEIGHT).fill(Array(MAX_WIDTH).fill(false));
+
 
 function initialBoard(width:number,height:number){
   return Array(height).fill(Array(width).fill(false))
 }
+
+/**
+ * @description
+ * The rect1 template
+ *
+ * @author
+ * Ahmed Khalil Seddik
+ */
+
 export function RectangularLayout(width: number, height: number): boolean[][] {
   if (width <= 0 || width > MAX_WIDTH) {
     throw new RangeError(`Width must be between 1 and ${MAX_WIDTH} inclusive`);
@@ -13,8 +26,8 @@ export function RectangularLayout(width: number, height: number): boolean[][] {
     throw new RangeError(`Height must be between 1 and ${MAX_HEIGHT} inclusive`);
   }
 
-  let offset_x = 0;//Math.floor((width - width) / 2);
-  let offset_y = 0;//Math.floor((height - height) / 2);
+  let offset_x = 0;
+  let offset_y = 0;
 
   return initialBoard(width,height).map((row, y) => row.map((cell, x) => {
 
@@ -27,6 +40,14 @@ export function RectangularLayout(width: number, height: number): boolean[][] {
   }));
 }
 
+/**
+ * @description
+ * The rect2 template
+ *
+ * @author
+ * Ahmed Khalil Seddik
+ */
+
 export function TwoRectangulesLayout(w1: number, h1: number, w2: number, h2: number): boolean[][] {
   if (w1 <= 0 || w1 > MAX_WIDTH) {
     throw new RangeError(`Width must be between 1 and ${MAX_WIDTH} inclusive`);
@@ -35,8 +56,8 @@ export function TwoRectangulesLayout(w1: number, h1: number, w2: number, h2: num
     throw new RangeError(`Height must be between 1 and ${MAX_HEIGHT} inclusive`);
   }
 
-  let offset_x = 0;//Math.floor((MAX_WIDTH - w1) / 2);
-  let offset_y = 0;//Math.floor((MAX_HEIGHT - h1) / 2);
+  let offset_x = 0;
+  let offset_y = 0;
   let offset_x1 = Math.floor((w1 - w2) / 2) + offset_x;
   let offset_y1 = Math.floor((h1 - h2) / 2) + offset_y;
 
@@ -54,6 +75,14 @@ export function TwoRectangulesLayout(w1: number, h1: number, w2: number, h2: num
   }));
 }
 
+/**
+ * @description
+ * The rect3 template
+ *
+ * @author
+ * Ahmed Khalil Seddik
+ */
+
 export function RectangularAndSquaresLayout(width, height, squareSide): boolean[][] {
   if (width <= 0 || width > MAX_WIDTH) {
     throw new RangeError(`Width must be between 1 and ${MAX_WIDTH} inclusive`);
@@ -62,8 +91,8 @@ export function RectangularAndSquaresLayout(width, height, squareSide): boolean[
     throw new RangeError(`Height must be between 1 and ${MAX_HEIGHT} inclusive`);
   }
 
-  let offset_x = 0;//Math.floor((MAX_WIDTH - width) / 2);
-  let offset_y = 0;//Math.floor((MAX_HEIGHT - height) / 2);
+  let offset_x = 0;
+  let offset_y = 0;
   let offset_x1 = Math.floor((4) / 2) + offset_x;
   let offset_y1 = Math.floor((4) / 2) + offset_y;
 

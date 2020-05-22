@@ -1,3 +1,4 @@
+// All possible game state values
 export enum GameState {
   ANALYSING,
   UPDATING,

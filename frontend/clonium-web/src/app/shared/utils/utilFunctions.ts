@@ -1,6 +1,14 @@
 import {Player} from '../models/player.model';
 import {GameState} from '../models/game-state.model';
 
+/**
+ * @description
+ * Converts a Player.enum value to a GameState.enum value
+ * @author
+ * Rafaa Seddik
+ *
+ * @param player
+ */
 export function playerToGameState(player: Player): GameState {
   let currentState: GameState;
   switch (player) {
@@ -21,6 +29,15 @@ export function playerToGameState(player: Player): GameState {
   }
   return currentState;
 }
+
+/**
+ * @description
+ * Converts a Player.enum value to a number
+ * @author
+ * Rafaa Seddik
+ *
+ * @param player
+ */
 export function playerToNumber(player:Player){
   switch (player) {
     case Player.PLAYER_1:
@@ -35,6 +52,17 @@ export function playerToNumber(player:Player){
       throw Error("Player UNKNOWN " + player)
   }
 }
+
+/**
+ * @description
+ * Returns the next gameState from the previous Player_X game state
+ *
+ * @author
+ * Rafaa Seddik
+ *
+ * @param player
+ * @param playersNumber
+ */
 export function nextGameState(player: Player, playersNumber: number): GameState {
   switch (player) {
     case Player.PLAYER_1:

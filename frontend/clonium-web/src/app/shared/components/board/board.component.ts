@@ -10,39 +10,67 @@ import {GameService} from '../../../core/services/game.service';
 import {RoomService} from '../../../core/services/room.service';
 import {nextGameState, playerToGameState} from '../../utils/utilFunctions';
 
+/**
+ * @description
+ * This is where all the magic happens.
+ * The game logic and the Game-play lifecycle are declared in this component
+ *
+ * For more details about the board configuration, check board.model
+ *
+ * @author
+ * Rafaa Seddik
+ */
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html'
 })
 export class BoardComponent implements OnInit {
 
+  // Toggle if the game is online/offline
   @Input() isOnline: boolean = false;
+  // The board configuration and state
+  @Input() board: Board;
+  // Toggle if a player is disconnected
   noPlayer1: boolean = false;
   noPlayer2: boolean = true;
   noPlayer3: boolean = true;
   noPlayer4: boolean = true;
+  // The current player number
   currentPlayer: Player;
+  // The current roomID : get from the Game.service
   roomID: string;
-  @Input() board: Board;
+  // a util function to Player.model to a GameState.model
   playerToGameState = playerToGameState;
+  // Types declaration
   GameState = GameState;
   Player = Player;
+  // Saves the last move by other players, to highlight the corresponding cell in the UI
   lastMove: Cell;
+  // Players' scores
   player1Score = 0;
   player2Score = 0;
   player3Score = 0;
   player4Score = 0;
+  // Used to lock the board, to prevent clicking on the same cell more then once
   boardLocked: boolean = false;
 
   constructor(private gameService: GameService, private roomService: RoomService) {
   }
 
+  /**
+   * When initialising this component, subscribe to all the subjects declared in the Room.service
+   */
   ngOnInit() {
     this.updateScore();
     if (this.isOnline) {
       this.currentPlayer = this.gameService.curentPlayer;
       this.roomID = this.roomService.roomID;
       this.updateConnectedPlayersNumber();
+
+      /**
+       * Subscribe to player_X_Joined Event
+       */
+
       this.roomService.playerOneJoined.asObservable().subscribe(joined => {
         if (joined) {
           if (this.noPlayer1 != false) {
@@ -95,6 +123,9 @@ export class BoardComponent implements OnInit {
           }
         }
       });
+      /**
+       * Subscribe to the move Event and call incrementFromOtherPlayer if another player made the move
+       */
       this.roomService.move.asObservable().subscribe(move => {
         let movePlayer: Player;
         switch (move.player) {
@@ -121,6 +152,12 @@ export class BoardComponent implements OnInit {
 
   }
 
+  /**
+   * @deprecated
+   * TODO : Remove this function
+   * @author
+   * Rafaa Seddik
+   */
   updateConnectedPlayersNumber() {
     this.roomService.getConnectedPlayers(this.roomID).then(nb => {
       if (nb < this.board.presentPlayers) {
@@ -132,13 +169,25 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  /**
+   * @description
+   * Copies the room ID into the clipboard
+   *
+   * @author
+   * Rafaa Seddik
+   */
   copyToClipboard(event) {
-    let input = event.target;
-    input.select();
-    document.execCommand('copy');
+    //TODO : Develop the copy into clipboard function
   }
 
-  // returns true if something changed
+  /**
+   * @description
+   * Updates the Game state to ANALYSING
+   * Returns the cells containing a value 4
+   *
+   * @author
+   * Rafaa Seddik
+   */
   analyse(): Array<Cell> {
     this.board.currentState = GameState.ANALYSING;
     const cells = (_.flatten(this.board.playedCells) as Array<Cell>)
@@ -148,6 +197,14 @@ export class BoardComponent implements OnInit {
     return cells;
   }
 
+  /**
+   * @description
+   * Updates the Game state to UPDATING
+   * Explodes the exploding cells
+   *
+   * @author
+   * Rafaa Seddik
+   */
   async update(cells: Array<Cell>, player: Player) {
     await wait(500);
     this.board.currentState = GameState.UPDATING;
@@ -157,6 +214,15 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  /**
+   * @description
+   * Recursively analyse the and update the board until there is nothing to update.
+   * then update the game state to the next player role
+   *
+   * TODO : Optimise this function
+   * @author
+   * Rafaa Seddik
+   */
   async nextRole() {
     if (this.board.currentState === GameState.PLAYER_1) {
       let explosionCells = this.analyse();
@@ -205,6 +271,15 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  /**
+   * @description
+   * Used as an event handler when a cell is clicked
+   * It locks the board to prevent clicking on the same cell more then once
+   * If the game is online, broadcast the move, and go to next role
+   *
+   * @author
+   * Rafaa Seddik
+   */
   async increment(cell: Cell) {
     this.lastMove = null;
     if (playerToGameState(cell.player) == this.board.currentState && (!this.isOnline || (this.currentPlayer == cell.player && !this.boardLocked))) {
@@ -212,7 +287,6 @@ export class BoardComponent implements OnInit {
         this.boardLocked = true;
         this.roomService.emitMove(this.currentPlayer, cell).then((a) => {
           cell.increment(cell.player);
-          console.log('moving');
           this.nextRole();
         }).finally(() => {
           this.boardLocked = false;
@@ -222,33 +296,15 @@ export class BoardComponent implements OnInit {
         this.nextRole();
       }
     }
-    /*if (this.board.currentState === GameState.PLAYER_1 && cell.player === Player.PLAYER_1 && (!this.isOnline || this.currentPlayer == Player.PLAYER_1)) {
-      if (this.isOnline) {
-        this.roomService.emitMove(this.currentPlayer, cell);
-      }
-
-    } else if (this.board.currentState === GameState.PLAYER_2 && cell.player === Player.PLAYER_2 && (!this.isOnline || this.currentPlayer == Player.PLAYER_2)) {
-      if (this.isOnline) {
-        this.roomService.emitMove(this.currentPlayer, cell);
-      }
-      cell.increment(Player.PLAYER_2);
-      this.nextRole();
-    } else if (this.board.currentState === GameState.PLAYER_3 && cell.player === Player.PLAYER_3 && (!this.isOnline || this.currentPlayer == Player.PLAYER_3)) {
-      if (this.isOnline) {
-        this.roomService.emitMove(this.currentPlayer, cell);
-      }
-      cell.increment(Player.PLAYER_3);
-      this.nextRole();
-    } else if (this.board.currentState === GameState.PLAYER_4 && cell.player === Player.PLAYER_4 && (!this.isOnline || this.currentPlayer == Player.PLAYER_4)) {
-      if (this.isOnline) {
-        this.roomService.emitMove(this.currentPlayer, cell);
-      }
-      cell.increment(Player.PLAYER_4);
-      this.nextRole();
-    }
-*/
   }
 
+  /**
+   * @description
+   * Used to apply a move from another player in an online game
+   *
+   * @author
+   * Rafaa Seddik
+   */
   async incrementFromOtherPlayer(x: number, y: number, player: Player) {
     let moveState = playerToGameState(player);
     if (this.board.currentState === moveState && this.currentPlayer != player) {
@@ -259,6 +315,15 @@ export class BoardComponent implements OnInit {
 
   }
 
+  /**
+   * @description
+   * Calculates each players score
+   * If a player gets 0, it is registered as lost.
+   * If all players lose, except the winner, the game state is set to PLAYER_X_WON
+   *
+   * @author
+   * Rafaa Seddik
+   */
   updateScore() {
     this.player1Score = (_.flatten(this.board.playedCells) as Array<Cell>).filter(cell => cell.player === Player.PLAYER_1).length;
     this.player2Score = (_.flatten(this.board.playedCells) as Array<Cell>).filter(cell => cell.player === Player.PLAYER_2).length;
@@ -297,9 +362,5 @@ export class BoardComponent implements OnInit {
       }
     }
 
-  }
-
-  serialize() {
-    console.log(this.board.serialize());
   }
 }
