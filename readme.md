@@ -1,6 +1,6 @@
 # Clonium
 
-![alt text](https://clonium.herokuapp.com/assets/img/LogoFinal.png "Logo Title Text 1")
+![alt text](https://clonium-game.onrender.com/assets/img/LogoFinal.png "Logo Title Text 1")
 
 ### About and backstory
 This game is a web adaptation for the addictive android game [BCG (Board Games Collection)](http://4pda.ru/forum/lofiversion/index.php?t632925.html).
