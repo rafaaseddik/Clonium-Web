@@ -1,5 +1,9 @@
-body{
-  background-color: black;
+body {
+  background-color: white;
+  font-family: 'Raleway', sans-serif;
+  //background: linear-gradient(0deg, #ddd,white, white);
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  min-height: 100vh;
   /*&::before{
     background-image: url('assets/img/bg.jpg');
     content:'';
@@ -10,10 +14,16 @@ body{
     right: 0;
     opacity: 0.1;
   }*/
+  .d-in-black{
+    display: none;
+  }
+}
+.home-btn{
+  width:150px;
+  border-radius: 0;
 }
 
-
-.create-room-modal{
+.create-room-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,14 +31,70 @@ body{
   right: 0;
   display: flex;
   align-items: center;
-  background-color:#00000090;
+  background-color: #00000090;
 
-  .modal-body{
+  .modal-body {
     padding: 20px;
     margin: 0 auto;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 3px;
     max-width: 500px;
 
+    .mode-selector {
+      cursor: pointer;
+
+      &:hover {
+        background: #0299ff33;
+      }
+
+      &.selectedMode {
+        box-shadow: 0px 0px 1px 2px #0299ff inset;
+      }
+    }
+
+    .players-selector {
+
+      cursor: pointer;
+
+      &:hover {
+        background: #ff004033;
+      }
+
+      &.selectedPlayers,&.selectedSize {
+        box-shadow: 0px 0px 1px 2px #ff0040 inset;
+      }
+    }
+    .map-selector {
+
+      img{
+        border: 1px solid black;
+        max-width: 100%;
+      }
+      cursor: pointer;
+
+      &:hover {
+        background: #15d41633;
+      }
+
+      &.selectedMap {
+        box-shadow: 0px 0px 1px 2px #15d416 inset;
+      }
+    }
   }
+}
+.footer-container{
+  opacity: 0.5;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  //background: white;
+  padding: 15px;
+  font-size: 13px;
+  font-weight: 200;
+}
+
+.rule-box{
+  margin-bottom: 15px;
+  font-size: 15px;
+  border-left: 4px solid black;
 }

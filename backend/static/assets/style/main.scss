@@ -1,5 +1,6 @@
 @import './general-style';
 @import './animations';
+@import './dark-mode';
 /* Components */
 
 @import "components/board";
@@ -7,3 +8,4 @@
 @import "components/header";
 @import "components/layout";
 @import "components/scoreboard";
+@import "components/message";
