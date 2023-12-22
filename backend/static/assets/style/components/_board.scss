@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin:5px auto;
-  max-width: calc(99vh - 180px);
+  margin:0 auto;
+  max-width: calc(99vh - 160px);
   .winning-overlay{
     position: absolute;
     top:0;
@@ -17,11 +17,6 @@
     justify-content: center;
     flex-wrap: wrap;
     h1{
-      flex-grow: 3;
-      flex-basis: 100%;
-      text-align: center;
-    }
-    h6{
       flex-grow: 1;
       flex-basis: 100%;
       text-align: center;
@@ -43,37 +38,29 @@
         background-color: black;
       }
       &.empty{
-        background-color: #eee;
-      }
-      .lastMove{
-        position: absolute;
-        top:0;bottom:0;left:0;right:0;
-        box-shadow: 0 0 17px -4px #000000dd inset;
-        animation: animationBlink ease-in-out 0.5s;
+        background-color: gray;
       }
       &.player1{
-        background: #eee;
+        background: gray;
         &.value-1{
-          background-image: url('/assets/img/cell/blue_1.png');
+          background-image: url('assets/img/cell/blue_1.png');
           background-size: cover;
         }
         &.value-2{
-          background-image: url('/assets/img/cell/blue_2.png');
+          background-image: url('assets/img/cell/blue_2.png');
           background-size: cover;
         }
         &.value-3{
-          background-image: url('/assets/img/cell/blue_3.png');
+          background-image: url('assets/img/cell/blue_3.png');
           background-size: cover;
         }
         &.value-4{
-          background-image: url('/assets/img/cell/blue_4.png');
+          background-image: url('assets/img/cell/blue_4.png');
           background-size: cover
         }
         &.clickable{
+          cursor: pointer;
           background-color: #0299ff;
-          &.pointer{
-            cursor: pointer;
-          }
           //box-shadow: inset 0 0 15px 0 #000;
         }
         .cell-explosion{
@@ -81,90 +68,30 @@
         }
       }
       &.player2{
-        background: #eee;
+        background: gray;
         &.value-1{
-          background-image: url('/assets/img/cell/red_1.png');
+          background-image: url('assets/img/cell/red_1.png');
           background-size: cover;
         }
         &.value-2{
-          background-image: url('/assets/img/cell/red_2.png');
+          background-image: url('assets/img/cell/red_2.png');
           background-size: cover;
         }
         &.value-3{
-          background-image: url('/assets/img/cell/red_3.png');
+          background-image: url('assets/img/cell/red_3.png');
           background-size: cover;
         }
         &.value-4{
-          background-image: url('/assets/img/cell/red_4.png');
+          background-image: url('assets/img/cell/red_4.png');
           background-size: cover
         }
         &.clickable{
+          cursor: pointer;
           background-color: #ff0040;
           //box-shadow: inset 0 0 15px 0 #000;
-          &.pointer{
-            cursor: pointer;
-          }
         }
         .cell-explosion{
           background-color: #ff0040;
-        }
-      }
-      &.player3{
-        background: #eee;
-        &.value-1{
-          background-image: url('/assets/img/cell/green_1.png');
-          background-size: cover;
-        }
-        &.value-2{
-          background-image: url('/assets/img/cell/green_2.png');
-          background-size: cover;
-        }
-        &.value-3{
-          background-image: url('/assets/img/cell/green_3.png');
-          background-size: cover;
-        }
-        &.value-4{
-          background-image: url('/assets/img/cell/green_4.png');
-          background-size: cover
-        }
-        &.clickable{
-          background-color: #15d416;
-          //box-shadow: inset 0 0 15px 0 #000;
-          &.pointer{
-            cursor: pointer;
-          }
-        }
-        .cell-explosion{
-          background-color: #15d416;
-        }
-      }
-      &.player4{
-        background: #eee;
-        &.value-1{
-          background-image: url('/assets/img/cell/yellow_1.png');
-          background-size: cover;
-        }
-        &.value-2{
-          background-image: url('/assets/img/cell/yellow_2.png');
-          background-size: cover;
-        }
-        &.value-3{
-          background-image: url('/assets/img/cell/yellow_3.png');
-          background-size: cover;
-        }
-        &.value-4{
-          background-image: url('/assets/img/cell/yellow_4.png');
-          background-size: cover
-        }
-        &.clickable{
-          background-color: #f0ff02;
-          //box-shadow: inset 0 0 15px 0 #000;
-          &.pointer{
-            cursor: pointer;
-          }
-        }
-        .cell-explosion{
-          background-color: #f0ff02;
         }
       }
       .board-value{
