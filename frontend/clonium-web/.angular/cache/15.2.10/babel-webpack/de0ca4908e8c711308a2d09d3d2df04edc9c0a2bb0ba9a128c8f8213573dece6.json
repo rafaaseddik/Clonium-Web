@@ -1,0 +1,1 @@
+{"ast":null,"code":"/**\n * @description\n * A message model class\n *\n * @author\n * Rafaa Seddik\n */\nexport class Message {\n  constructor(sender, text) {\n    this.sender = sender;\n    this.text = text;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
