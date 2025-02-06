@@ -33,7 +33,10 @@ We are accepting contributors, you can add a pull request and we will review any
 
 ### Licence : 
 This open-source project is licenced by Apache License 2.0
-### Authors
+### Original Authors
 -   Mohamed Rafaa Seddik
 -   Ahmed Khalil Seddik
-
+### Fork Authors
+-   imistrz
+## Idea giver
+-   SuperPou
